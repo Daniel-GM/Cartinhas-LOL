@@ -1,4 +1,4 @@
-fetch('https://gol.gg/players/player-stats/1114/season-S13/split-Spring/tournament-ALL/champion-ALL/')
+fetch('https://lol.fandom.com/wiki/CBLOL/2023_Season/Split_1')
   .then(response => response.text())
   .then(html => {
     const parser = new DOMParser()
