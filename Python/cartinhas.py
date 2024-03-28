@@ -20,6 +20,8 @@ if response.status_code == 200:
             columns = row.find_all(['td', 'th'])
             data.append([column.text.strip() for column in columns])
 
+        print(data)
+
         df = pd.DataFrame(data[1:], columns=data[0])
 
         fig, ax = plt.subplots(figsize=(10, 6))
@@ -32,7 +34,7 @@ if response.status_code == 200:
         tab.auto_set_column_width([i for i in range(len(df.columns))])
 
         plt.savefig('tabela.png', bbox_inches='tight', pad_inches=0.5)
-        plt.show()
+        # plt.show()
     else:
         print("Nenhuma tabela encontrada no site.")
 else:
