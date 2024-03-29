@@ -7,6 +7,15 @@ import re
 import json
 import numpy as np
 
+def limparJson():
+    data = ["times.json", "top.json", "jungle.json", "mid.json", "bot.json", "support.json"]
+    
+    for row in data:
+        position = row
+        filename = position.lower()
+        with open(filename, 'w'):
+            pass
+
 def extract_champion_data(champion_info):
     champion = ''
     winrate = ''
@@ -25,7 +34,6 @@ def extract_champion_data(champion_info):
     if match_kda:
         kda = match_kda.group(1).strip()
     
-    # Modificado para capturar o número após o KDA
     match_games = re.search(r'KDA\s*:\s*[\d.]+\s*\n\r\n\s*(\d+)', champion_info)
     if match_games:
         times_played = match_games.group(1).strip()
@@ -34,7 +42,7 @@ def extract_champion_data(champion_info):
         'Champion': champion,
         'Winrate': winrate,
         'KDA': kda,
-        'Times Played': times_played  # Adicionado aqui
+        'Times Played': times_played
     }
 
 def extract_teams_data(url, time):
@@ -54,10 +62,8 @@ def extract_teams_data(url, time):
                 columns = row.find_all(['td', 'th'])
                 data.append([column.text.strip() for column in columns])
 
-            # Encontre o número máximo de colunas
             max_columns = max(len(row) for row in data)
 
-            # Certifique-se de que todas as linhas tenham o mesmo número de colunas
             data = [row + [''] * (max_columns - len(row)) for row in data]
 
             data = np.delete(data, 0, axis=0)
@@ -76,18 +82,19 @@ def extract_teams_data(url, time):
             if(len(data) > 5):
                 data = np.delete(data, 5, axis=0)
                 data = data.tolist()
-                
-            for row in data:
+            
+            for index, row in enumerate(data):
                 position = row[0]
-                json_data = json.dumps(row[1:])
 
-                # Determinar o nome do arquivo com base na posição
+                player_data = {'time': time}
+                player_stats = {f"Player": row[1], "Campeao": row[7]}
+                player_data.update(player_stats)
+
                 filename = position.lower() + '.json'
 
-                # Adicionar ou criar um novo arquivo JSON
                 with open(filename, 'a+') as f:
-                    json.dump(row[1:], f)  # Gravar o objeto JSON diretamente
-                    f.write('\n')  # Adicionar uma nova linha
+                    json.dump(player_data, f)
+                    f.write('\n')
 
             df = pd.DataFrame(data[1:], columns=data[0])
             
@@ -101,13 +108,12 @@ def extract_teams_data(url, time):
             tab.auto_set_column_width([i for i in range(len(df.columns))])
 
             plt.savefig(f"tabela {time}.png", bbox_inches='tight', pad_inches=0.5)
-            # plt.show()
-            
         else:
             print("Nenhuma tabela encontrada no site.")
     else:
         print('Erro ao acessar o site:', response.status_code)
 
+limparJson()
 url = "https://gol.gg/teams/list/season-ALL/split-ALL/tournament-CBLOL%20Split%201%202024/"
 headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'}
@@ -125,7 +131,10 @@ if response.status_code == 200:
             if columns and columns[0].find('a'):
                 href = columns[0].find('a')['href']
                 href = href.replace('.', 'https://gol.gg/teams').replace(' ', '%20')
-                print(columns[0].text.strip())
+                with open('times.json', 'a+') as f:
+                    json.dump(columns[0].text.strip(), f)
+                    f.write('\n')
+                    
                 extract_teams_data(href, columns[0].text.strip())
     else:
         print("Nenhuma tabela encontrada no site.")
