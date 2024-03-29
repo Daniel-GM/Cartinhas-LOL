@@ -49,7 +49,9 @@ document.addEventListener("DOMContentLoaded", function () {
         roles.forEach(role => {
             jogadores(role)
                 .then(data => {
-                    data = JSON.parse(data);
+                    console.log(data)
+                    data = JSON.parse(data)
+                    console.log(data)
                     for (let index = 0; index < data.length; index++) {
                         const timeKey = data[index].time.replace(/ /g, '').replace(/!/g, '').toLowerCase();
                         const jogadorTable = document.querySelector(`.${timeKey} table.jogador-table`); // Selecionando a tabela do jogador dentro do respectivo time
