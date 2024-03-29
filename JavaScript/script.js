@@ -1,24 +1,31 @@
 document.addEventListener("DOMContentLoaded", function () {
-    let data = localStorage.getItem("cartinhas_data")
+    let roles = ["top.json", "jungle.json", "mid.json", "bot.json", "support.json"]
+    roles.forEach(role => {
+        fetch(role)
+            .then(response => response.text())
+            .then(text => {
+                const transformedText = transformInvalidJson(text)
+                const data = transformedText
+                localStorage.setItem("mid_data", JSON.stringify(data))
+                mostrarRoles(data)
+            })
+            .catch(error => console.error("Erro ao obter os dados:", error))
+    })
 
-    if (data) {
-        localStorage.clear()
+    function mostrarRoles(data) {
+        if (data === null) {
+            console.error("Dados nulos fornecidos para mostrar as roles")
+            return
+        }
+        data = JSON.parse(data)
+        console.log(data)
     }
 
-    fetch("cartinhas.json")
-        .then(response => response.json())
-        .then(data => {
-            localStorage.setItem("cartinhas_data", JSON.stringify(data))
-            mostrarCampeao(data)
-        })
-        .catch(error => console.error("Erro ao obter os dados:", error))
+    function transformInvalidJson(input) {
+        input = `[\n` + input + "]"
+        input = input.replace(/]/g, "],")
+        output = input.slice(0, -5) + `\n]`
 
-    function mostrarCampeao(data) {
-        data.forEach(element => {
-            if(element[1] != undefined) console.log(element[1])
-            if(element[2] != undefined) console.log(element[2])
-            if(element[3] != undefined) console.log(element[3])
-            if(element[7] != undefined) console.log(element[7])
-        });
+        return output
     }
 })

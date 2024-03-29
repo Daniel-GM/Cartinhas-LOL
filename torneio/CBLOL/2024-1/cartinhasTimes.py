@@ -1,3 +1,4 @@
+import os
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
@@ -35,7 +36,6 @@ def extract_champion_data(champion_info):
         'KDA': kda,
         'Times Played': times_played  # Adicionado aqui
     }
-
 
 def extract_teams_data(url, time):
     headers = {
@@ -77,12 +77,18 @@ def extract_teams_data(url, time):
                 data = np.delete(data, 5, axis=0)
                 data = data.tolist()
                 
-            print(data)
-            json_data = json.dumps(data)
-            
-            with open('cartinhas.json', 'w') as f:
-                f.write(json_data)
-            
+            for row in data:
+                position = row[0]
+                json_data = json.dumps(row[1:])
+
+                # Determinar o nome do arquivo com base na posição
+                filename = position.lower() + '.json'
+
+                # Adicionar ou criar um novo arquivo JSON
+                with open(filename, 'a+') as f:
+                    json.dump(row[1:], f)  # Gravar o objeto JSON diretamente
+                    f.write('\n')  # Adicionar uma nova linha
+
             df = pd.DataFrame(data[1:], columns=data[0])
             
             fig, ax = plt.subplots(figsize=(10, 6))
