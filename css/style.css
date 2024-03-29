@@ -10,16 +10,17 @@ body {
     width: 80%;
 }
 
-h2, li {
+h2, tr {
     color: #fff;
 }
 
-ol {
-    list-style-type: none;
+tr, td {
+    font-size: .70rem;
+    border: solid 1px #5f5f5f;
 }
 
-li {
-    font-size: .70rem;
+td {
+    width: 20%;
 }
 
 h2 {
