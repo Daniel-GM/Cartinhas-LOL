@@ -4,6 +4,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import re
 import json
+import numpy as np
 
 def extract_champion_data(champion_info):
     champion = ''
@@ -53,13 +54,30 @@ def extract_teams_data(url, time):
                 columns = row.find_all(['td', 'th'])
                 data.append([column.text.strip() for column in columns])
 
-            for row in data[1:]:
+            # Encontre o número máximo de colunas
+            max_columns = max(len(row) for row in data)
+
+            # Certifique-se de que todas as linhas tenham o mesmo número de colunas
+            data = [row + [''] * (max_columns - len(row)) for row in data]
+
+            data = np.delete(data, 0, axis=0)
+            data = data.tolist()
+            
+            for row in data:
                 if len(row) == 8:
                     champion_info = row[-1]
                     champion_data = extract_champion_data(champion_info)
                     row[-1] = champion_data
-            print(data)
             
+            if(data[0][0] == 'Last line-up'):
+                data = np.delete(data, 0, axis=0)
+                data = data.tolist()
+                
+            if(len(data) > 5):
+                data = np.delete(data, 5, axis=0)
+                data = data.tolist()
+                
+            print(data)
             json_data = json.dumps(data)
             
             with open('cartinhas.json', 'w') as f:
