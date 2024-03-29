@@ -1,46 +1,46 @@
 document.addEventListener("DOMContentLoaded", function () {
-    
+
     function printTimes() {
         const divTimes = document.querySelector('#times');
 
         times()
-        .then(data => {
-            data.forEach(time => {
-                const jogadorTable = document.createElement('table');
-                jogadorTable.classList.add('jogador-table');
+            .then(data => {
+                data.forEach(time => {
+                    const jogadorTable = document.createElement('table');
+                    jogadorTable.classList.add('jogador-table');
 
-                const jogadorHeadRow = document.createElement('tr');
-                const jogadorNameHead = document.createElement('th');
-                jogadorNameHead.textContent = 'Nome';
-                const campeaoHead = document.createElement('th');
-                campeaoHead.textContent = 'Campeão';
-                const vezesJogadasHead = document.createElement('th');
-                vezesJogadasHead.textContent = 'Vezes Jogadas';
-                const kdaHead = document.createElement('th');
-                kdaHead.textContent = 'KDA';
-                const winrateHead = document.createElement('th');
-                winrateHead.textContent = 'Winrate';
+                    const jogadorHeadRow = document.createElement('tr');
+                    const jogadorNameHead = document.createElement('th');
+                    jogadorNameHead.textContent = 'Nome';
+                    const campeaoHead = document.createElement('th');
+                    campeaoHead.textContent = 'Campeão';
+                    const vezesJogadasHead = document.createElement('th');
+                    vezesJogadasHead.textContent = 'Vezes Jogadas';
+                    const kdaHead = document.createElement('th');
+                    kdaHead.textContent = 'KDA';
+                    const winrateHead = document.createElement('th');
+                    winrateHead.textContent = 'Winrate';
 
-                jogadorHeadRow.appendChild(jogadorNameHead);
-                jogadorHeadRow.appendChild(campeaoHead);
-                jogadorHeadRow.appendChild(vezesJogadasHead);
-                jogadorHeadRow.appendChild(kdaHead);
-                jogadorHeadRow.appendChild(winrateHead);
-                jogadorTable.appendChild(jogadorHeadRow);
+                    jogadorHeadRow.appendChild(jogadorNameHead);
+                    jogadorHeadRow.appendChild(campeaoHead);
+                    jogadorHeadRow.appendChild(vezesJogadasHead);
+                    jogadorHeadRow.appendChild(kdaHead);
+                    jogadorHeadRow.appendChild(winrateHead);
+                    jogadorTable.appendChild(jogadorHeadRow);
 
 
-                const div = document.createElement('div')
-                div.className = `row tabelasTimes justify-content-center ${time.replace(/ /g, '').replace(/!/g, '').toLowerCase()}`
-                
-                const h2 = document.createElement('h2')
-                h2.textContent = time
+                    const div = document.createElement('div')
+                    div.className = `row tabelasTimes justify-content-center ${time.replace(/ /g, '').replace(/!/g, '').toLowerCase()}`
 
-                div.appendChild(h2)
-                divTimes.appendChild(div)
-                div.appendChild(jogadorTable); // Adicionando a tabela dentro da div de cada time
-            });
-        })
-        .catch(error => console.error("Erro ao obter os dados dos times:", error));
+                    const h2 = document.createElement('h2')
+                    h2.textContent = time
+
+                    div.appendChild(h2)
+                    divTimes.appendChild(div)
+                    div.appendChild(jogadorTable); // Adicionando a tabela dentro da div de cada time
+                });
+            })
+            .catch(error => console.error("Erro ao obter os dados dos times:", error));
     }
 
     function printJogadores() {
@@ -76,7 +76,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         jogadorRow.appendChild(timesPlayedCell);
                         jogadorRow.appendChild(kdaCell);
                         jogadorRow.appendChild(winrateCell);
-                        
+
                         jogadorTable.appendChild(jogadorRow);
                     }
                 })
