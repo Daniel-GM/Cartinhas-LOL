@@ -49,9 +49,9 @@ document.addEventListener("DOMContentLoaded", function () {
         roles.forEach(role => {
             jogadores(role)
                 .then(data => {
-                    console.log(data)
+                    // console.log(data)
                     data = JSON.parse(data)
-                    console.log(data)
+                    // console.log(data)
                     for (let index = 0; index < data.length; index++) {
                         const timeKey = data[index].time.replace(/ /g, '').replace(/!/g, '').toLowerCase();
                         const jogadorTable = document.querySelector(`.${timeKey} table.jogador-table`);
@@ -86,6 +86,148 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    printTimes();
-    printJogadores();
-});
+    function printTodosJogadores() {
+        const roles = ["top.json", "jungle.json", "mid.json", "bot.json", "support.json"]
+        const groupRole = []
+    
+        roles.forEach(role => {
+            jogadores(role)
+                .then(data => {
+                    role = role.replace('.json', '')
+                    JSON.parse(data).forEach(jogador => {
+                        groupRole.push({Player: jogador.Player, Role: role})
+                    })
+                })
+        })
+    
+        const player = []
+        const game = []
+        const winrate = []
+        const kda = []
+        const csm = []
+        const gpm = []
+        const kp = []
+        const gd = []
+        const xpd = []
+        const ranking = []
+    
+        todosJogadores()
+            .then(data => {
+                data.forEach(row => {
+                    player.push(row[0])
+                    game.push(row[2])
+                    winrate.push(parseFloat(row[3].replace('%', '')))
+                    kda.push(row[4])
+                    csm.push(row[8])
+                    gpm.push(row[9])
+                    kp.push(parseFloat(row[10].replace('%', '')))
+                    gd.push(row[17])
+                    xpd.push(row[19])
+                    row[24] = groupRole.find(player => player.Player === row[0]).Role
+                })
+    
+                const maiorMenor = {
+                    game: {},
+                    winrate: {},
+                    kda: {},
+                    csm: {},
+                    gpm: {},
+                    kp: {},
+                    gd: {},
+                    xpd: {}
+                }
+    
+                roles.forEach(role => {
+                    maiorMenor.game[role] = { max: -Infinity, min: Infinity }
+                    maiorMenor.winrate[role] = { max: -Infinity, min: Infinity }
+                    maiorMenor.kda[role] = { max: -Infinity, min: Infinity }
+                    maiorMenor.csm[role] = { max: -Infinity, min: Infinity }
+                    maiorMenor.gpm[role] = { max: -Infinity, min: Infinity }
+                    maiorMenor.kp[role] = { max: -Infinity, min: Infinity }
+                    maiorMenor.gd[role] = { max: -Infinity, min: Infinity }
+                    maiorMenor.xpd[role] = { max: -Infinity, min: Infinity }
+                })
+    
+                data.forEach(row => {
+                    const currentRole = groupRole.find(player => player.Player === row[0]).Role
+                    const role = currentRole + '.json'
+                    maiorMenor.game[role].max = Math.max(maiorMenor.game[role].max, row[2])
+                    maiorMenor.game[role].min = Math.min(maiorMenor.game[role].min, row[2])
+                    maiorMenor.winrate[role].max = Math.max(maiorMenor.winrate[role].max, parseFloat(row[3].replace('%', '')))
+                    maiorMenor.winrate[role].min = Math.min(maiorMenor.winrate[role].min, parseFloat(row[3].replace('%', '')))
+                    maiorMenor.kda[role].max = Math.max(maiorMenor.kda[role].max, row[4])
+                    maiorMenor.kda[role].min = Math.min(maiorMenor.kda[role].min, row[4])
+                    maiorMenor.csm[role].max = Math.max(maiorMenor.csm[role].max, row[8])
+                    maiorMenor.csm[role].min = Math.min(maiorMenor.csm[role].min, row[8])
+                    maiorMenor.gpm[role].max = Math.max(maiorMenor.gpm[role].max, row[9])
+                    maiorMenor.gpm[role].min = Math.min(maiorMenor.gpm[role].min, row[9])
+                    maiorMenor.kp[role].max = Math.max(maiorMenor.kp[role].max, parseFloat(row[10].replace('%', '')))
+                    maiorMenor.kp[role].min = Math.min(maiorMenor.kp[role].min, parseFloat(row[10].replace('%', '')))
+                    maiorMenor.gd[role].max = Math.max(maiorMenor.gd[role].max, row[17])
+                    maiorMenor.gd[role].min = Math.min(maiorMenor.gd[role].min, row[17])
+                    maiorMenor.xpd[role].max = Math.max(maiorMenor.xpd[role].max, row[19])
+                    maiorMenor.xpd[role].min = Math.min(maiorMenor.xpd[role].min, row[19])
+                })
+    
+                for (let role in maiorMenor.game) {
+                    maiorMenor.game[role] = [maiorMenor.game[role].max, maiorMenor.game[role].min]
+                    maiorMenor.winrate[role] = [maiorMenor.winrate[role].max, maiorMenor.winrate[role].min]
+                    maiorMenor.kda[role] = [maiorMenor.kda[role].max, maiorMenor.kda[role].min]
+                    maiorMenor.csm[role] = [maiorMenor.csm[role].max, maiorMenor.csm[role].min]
+                    maiorMenor.gpm[role] = [maiorMenor.gpm[role].max, maiorMenor.gpm[role].min]
+                    maiorMenor.kp[role] = [maiorMenor.kp[role].max, maiorMenor.kp[role].min]
+                    maiorMenor.gd[role] = [maiorMenor.gd[role].max, maiorMenor.gd[role].min]
+                    maiorMenor.xpd[role] = [maiorMenor.xpd[role].max, maiorMenor.xpd[role].min]
+                }
+
+                roles.forEach(role => {
+                    console.log(role)
+                    console.log("Jogos: " + maiorMenor.game[role])
+                    console.log("Winrate: " + maiorMenor.winrate[role])
+                    console.log("KDA: " + maiorMenor.kda[role])
+                    console.log("CSM: " + maiorMenor.csm[role])
+                    console.log("GPM: " + maiorMenor.gpm[role])
+                    console.log("KP%: " + maiorMenor.kp[role])
+                    console.log("GD@15: " + maiorMenor.gd[role])
+                    console.log("XPD@15: " + maiorMenor.xpd[role])
+                })
+
+                data.forEach(row => {
+                    const score = []
+                    score.push(gerarScore(row[2], maiorMenor.game[row[24] + '.json'][0], maiorMenor.game[row[24] + '.json'][1]))
+                    score.push(gerarScore(parseFloat(row[3].replace('%', '')), maiorMenor.winrate[row[24] + '.json'][0], maiorMenor.winrate[row[24] + '.json'][1]))
+                    score.push(gerarScore(row[4], maiorMenor.kda[row[24] + '.json'][0], maiorMenor.kda[row[24] + '.json'][1]))
+                    score.push(gerarScore(row[8], maiorMenor.csm[row[24] + '.json'][0], maiorMenor.csm[row[24] + '.json'][1]))
+                    score.push(gerarScore(row[9], maiorMenor.gpm[row[24] + '.json'][0], maiorMenor.gpm[row[24] + '.json'][1]))
+                    score.push(gerarScore(parseFloat(row[10].replace('%', '')), maiorMenor.kp[row[24] + '.json'][0], maiorMenor.kp[row[24] + '.json'][1]))
+                    score.push(gerarScore(row[17], maiorMenor.gd[row[24] + '.json'][0], maiorMenor.gd[row[24] + '.json'][1]))
+                    score.push(gerarScore(row[19], maiorMenor.xpd[row[24] + '.json'][0], maiorMenor.xpd[row[24] + '.json'][1]))
+    
+                    let media = 0
+                    for (let index = 0; index < score.length; index++) {
+                        media += score[index]
+                    }
+                    media /= score.length
+                    ranking.push({ jogador: row[0], media: media })
+                })
+    
+                ranking.sort((a, b) => b.media - a.media)
+                ranking.forEach(item => {
+                    console.log(`${item.jogador}: ${item.media.toFixed(0)}`)
+                })
+            })
+    }
+    
+    function gerarScore(valor, max, min) {
+        let score, pontuacao, maxMin, maxScore = 100
+        pontuacao = valor - min
+        maxMin = max - min
+        score = (pontuacao / maxMin) * maxScore
+        return score
+    }
+    
+
+    printTimes()
+    printJogadores()
+    printTodosJogadores()
+})

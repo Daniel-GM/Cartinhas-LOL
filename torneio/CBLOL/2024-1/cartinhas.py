@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 import pandas as pd
 import matplotlib.pyplot as plt
 
-url = "https://gol.gg/players/list/season-S14/split-ALL/tournament-CBLOL%20Split%201%202024/"
+url = "https://gol.gg/players/list/season-ALL/split-ALL/tournament-CBLOL%20Split%201%20Playoffs%202024/"
 headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'}
 

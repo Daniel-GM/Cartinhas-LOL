@@ -29,6 +29,20 @@ document.addEventListener("DOMContentLoaded", function () {
             })
     }
 
+    function todosJogadores() {
+        return fetch("jogadores.json")
+            .then(response => response.text())
+            .then(text => {
+                const data = JSON.parse(text)
+                localStorage.setItem("jogadores.json", JSON.stringify(data))
+                return data
+            })
+            .catch(error => {
+                console.error("Erro ao obter os dados dos times:", error)
+                throw error
+            })
+    }
+
     function mostrarRoles(data) {
         if (data === null) {
             console.error("Dados nulos fornecidos para mostrar as roles")
@@ -38,7 +52,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // console.log(data)
     }
 
-    function transformarJsonJogadores(input) {
+    function transformarJsonJogadores (input) {
         input = input.replace(/}}/g, "}},")
         output = input.slice(0, -1) + ``
         output = `[${output}]`
@@ -53,6 +67,7 @@ document.addEventListener("DOMContentLoaded", function () {
         return output
     }
 
+    window.todosJogadores = todosJogadores
     window.jogadores = jogadores
     window.times = times
 })

@@ -8,7 +8,7 @@ import json
 import numpy as np
 
 def limparJson():
-    data = ["times.json", "top.json", "jungle.json", "mid.json", "bot.json", "support.json"]
+    data = ["jogadores.json", "times.json", "top.json", "jungle.json", "mid.json", "bot.json", "support.json"]
     
     for row in data:
         position = row
@@ -92,35 +92,65 @@ def extract_teams_data(url, time):
 
                 filename = position.lower() + '.json'
 
-                print(data)
+                # print(data)
 
                 with open(filename, 'a+') as f:
                     json.dump(player_data, f)
                     # f.write('\n')
 
-            df = pd.DataFrame(data[1:], columns=data[0])
+            # df = pd.DataFrame(data[1:], columns=data[0])
             
-            fig, ax = plt.subplots(figsize=(10, 6))
-            ax.axis('off')
+            # fig, ax = plt.subplots(figsize=(10, 6))
+            # ax.axis('off')
 
-            tab = ax.table(cellText=df.values, colLabels=df.columns, cellLoc='center', loc='center', colColours=['#f0f0f0']*len(df.columns))
-            tab.auto_set_font_size(False)
-            tab.set_fontsize(10)
+            # tab = ax.table(cellText=df.values, colLabels=df.columns, cellLoc='center', loc='center', colColours=['#f0f0f0']*len(df.columns))
+            # tab.auto_set_font_size(False)
+            # tab.set_fontsize(10)
 
-            tab.auto_set_column_width([i for i in range(len(df.columns))])
+            # tab.auto_set_column_width([i for i in range(len(df.columns))])
 
-            plt.savefig(f"tabela {time}.png", bbox_inches='tight', pad_inches=0.5)
+            # plt.savefig(f"tabela {time}.png", bbox_inches='tight', pad_inches=0.5)
+        else:
+            print("Nenhuma tabela encontrada no site.")
+    else:
+        print('Erro ao acessar o site:', response.status_code)
+
+def extract_players_data(url):
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'}
+
+    response = requests.get(url, headers=headers)
+
+    if response.status_code == 200:
+        soup = BeautifulSoup(response.text, 'html.parser')
+
+        table = soup.find('table', class_='table_list')
+
+        if table:
+            data = []
+            for row in table.find_all('tr'):
+                columns = row.find_all(['td', 'th'])
+                data.append([column.text.strip() for column in columns])
+
+            data = np.delete(data, 0, axis=0)
+            data = data.tolist()
+
+            print(data)
+
+            with open('jogadores.json', 'a+') as f:
+                    json.dump(data, f)
         else:
             print("Nenhuma tabela encontrada no site.")
     else:
         print('Erro ao acessar o site:', response.status_code)
 
 limparJson()
-url = "https://gol.gg/teams/list/season-ALL/split-ALL/tournament-CBLOL%20Split%201%20Playoffs%202024/"
+url_players = "https://gol.gg/players/list/season-ALL/split-ALL/tournament-CBLOL%20Split%201%20Playoffs%202024/"
+url_team = "https://gol.gg/teams/list/season-ALL/split-ALL/tournament-CBLOL%20Split%201%20Playoffs%202024/"
 headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'}
 
-response = requests.get(url, headers=headers)
+response = requests.get(url_team, headers=headers)
 
 if response.status_code == 200:
     soup = BeautifulSoup(response.text, 'html.parser')
@@ -142,3 +172,5 @@ if response.status_code == 200:
         print("Nenhuma tabela encontrada no site.")
 else:
     print('Erro ao acessar o site:', response.status_code)
+
+extract_players_data(url_players)
