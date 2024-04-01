@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function transformarJsonJogadores(input) {
         input = input.replace(/}}/g, "}},")
-        output = input.slice(0, -3) + `}`
+        output = input.slice(0, -1) + ``
         output = `[${output}]`
 
         return output

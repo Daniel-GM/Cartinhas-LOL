@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     div.appendChild(h2)
                     divTimes.appendChild(div)
-                    div.appendChild(jogadorTable); // Adicionando a tabela dentro da div de cada time
+                    div.appendChild(jogadorTable);
                 });
             })
             .catch(error => console.error("Erro ao obter os dados dos times:", error));
@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     console.log(data)
                     for (let index = 0; index < data.length; index++) {
                         const timeKey = data[index].time.replace(/ /g, '').replace(/!/g, '').toLowerCase();
-                        const jogadorTable = document.querySelector(`.${timeKey} table.jogador-table`); // Selecionando a tabela do jogador dentro do respectivo time
+                        const jogadorTable = document.querySelector(`.${timeKey} table.jogador-table`);
 
                         const jogadorRow = document.createElement('tr');
 

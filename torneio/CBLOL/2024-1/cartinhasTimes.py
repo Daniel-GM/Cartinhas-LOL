@@ -92,9 +92,11 @@ def extract_teams_data(url, time):
 
                 filename = position.lower() + '.json'
 
+                print(data)
+
                 with open(filename, 'a+') as f:
                     json.dump(player_data, f)
-                    f.write('\n')
+                    # f.write('\n')
 
             df = pd.DataFrame(data[1:], columns=data[0])
             
@@ -114,7 +116,7 @@ def extract_teams_data(url, time):
         print('Erro ao acessar o site:', response.status_code)
 
 limparJson()
-url = "https://gol.gg/teams/list/season-ALL/split-ALL/tournament-CBLOL%20Split%201%202024/"
+url = "https://gol.gg/teams/list/season-ALL/split-ALL/tournament-CBLOL%20Split%201%20Playoffs%202024/"
 headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'}
 
