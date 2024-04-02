@@ -8,5 +8,20 @@ body {
 
 h2, div {
     color: #fff;
-    font-size: 1rem;
+    font-size: .65rem;
+}
+
+.tabelasTimes div {
+    border: solid 1px #4e4e4e;
+}
+
+.cardJogador {
+    width: 100%;
+    padding: 0;
+    margin: 0 15px;
+}
+
+.data {
+    width: 100%;
+    margin: 0;
 }

@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
             .then(data => {
                 data.forEach(time => {
                     const div = document.createElement('div')
-                    div.className = `row tabelasTimes justify-content-around ${time.replace(/ /g, '').replace(/!/g, '').toLowerCase()}`
+                    div.className = `row tabelasTimes justify-content-around ${time.replace(/ /g, '').replace(/!/g, '').toLowerCase()} mt-4 mb-4`
 
                     const h2 = document.createElement('h2')
                     h2.textContent = time
@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
             .catch(error => console.error("Erro ao obter os dados dos times:", error))
     }
 
-    function printJogadores() {
+    async function printJogadores() {
         const roles = ["top.json", "jungle.json", "mid.json", "bot.json", "support.json"]
 
         async function getDados() {
@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
             return score
         }
 
-        roles.forEach(role => {
+        await roles.forEach(role => {
             jogadores(role)
                 .then(data => {
                     data = JSON.parse(data)
@@ -42,11 +42,13 @@ document.addEventListener("DOMContentLoaded", function () {
                             const timeKey = data[index].time.replace(/ /g, '').replace(/!/g, '').toLowerCase()
                             const jogadorTable = document.querySelector(`.${timeKey}`)
                             const playerIndex = result.dados.findIndex(score => score[0] === data[index].Player);
+                            const scoreIndex = result.score.findIndex(score => score.jogador === data[index].Player);
+                            const scorePlayer = result.score[scoreIndex].media
 
-                            /* tbody */
+                            /* cardJogador */
                             const card = document.createElement('div')
                             card.style.width = "220px"
-                            card.classList = "col text-center"
+                            card.classList = "col text-center cardJogador"
 
                             /* nome */
                             const divName = document.createElement('div')
@@ -62,8 +64,9 @@ document.addEventListener("DOMContentLoaded", function () {
                             const divScore = document.createElement('div')
                             divScore.classList = "text-center"
 
-                            console.log(result.score)
+                            
                             const score = document.createElement('span')
+                            score.textContent = scorePlayer.toFixed(0)
 
                             divScore.appendChild(score)
                             card.appendChild(divScore)
@@ -86,9 +89,9 @@ document.addEventListener("DOMContentLoaded", function () {
                             const divWin = document.createElement('div')
 
                             win.textContent = `WinRate`
-                            spanWin.textContent = `${result.dados[playerIndex][4]}`
+                            spanWin.textContent = `${result.dados[playerIndex][3]}`
 
-                            divWin.classList = "row"
+                            divWin.classList = "row data"
                             spanWin.classList = "col-5"
                             win.classList = "col-7"
 
@@ -104,7 +107,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             Kda.textContent = `KDA`
                             spanKda.textContent = `${result.dados[playerIndex][5]}`
 
-                            divKda.classList = "row"
+                            divKda.classList = "row data"
                             spanKda.classList = "col-5"
                             Kda.classList = "col-7"
 
@@ -120,7 +123,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             kp.textContent = `KP%`
                             spanKp.textContent = `${result.dados[playerIndex][10]}`
 
-                            divKp.classList = "row"
+                            divKp.classList = "row data"
                             spanKp.classList = "col-5"
                             kp.classList = "col-7"
 
@@ -138,12 +141,12 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    async function printTodosJogadores() {
+    function printTodosJogadores() {
         const roles = ["top.json", "jungle.json", "mid.json", "bot.json", "support.json"]
         const groupRole = []
 
         return Promise.all(roles.map(role => jogadores(role)))
-            .then(results => {
+            .then(async results => {
                 results.forEach((data, index) => {
                     const role = roles[index].replace('.json', '')
                     JSON.parse(data).forEach(jogador => {
@@ -162,7 +165,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 const xpd = []
                 const ranking = []
 
-                todosJogadores()
+                await todosJogadores()
                     .then(data => {
                         data.forEach(row => {
                             player.push(row[0])
