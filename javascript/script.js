@@ -9,10 +9,10 @@ document.addEventListener("DOMContentLoaded", function () {
                     const div = document.createElement('div')
                     div.className = `row tabelasTimes justify-content-around ${time.replace(/ /g, '').replace(/!/g, '').toLowerCase()} mt-4 mb-4`
 
-                    const h2 = document.createElement('h2')
-                    h2.textContent = time
+                    const h1 = document.createElement('h1')
+                    h1.textContent = time
 
-                    div.appendChild(h2)
+                    div.appendChild(h1)
                     divTimes.appendChild(div)
                 })
             })
@@ -29,6 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const data = await jogadores(role)
             const players = JSON.parse(data)
             
+
             for (const player of players) {
                 const playerName = player.Player
                 const timeKey = player.time.replace(/ /g, '').replace(/!/g, '').toLowerCase()
@@ -40,6 +41,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 const card = document.createElement('div')
                 card.style.width = "220px"
                 card.classList = "col text-center cardJogador"
+
+                
 
                 const divName = document.createElement('div')
                 divName.classList = "text-center"
@@ -63,10 +66,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 divPhoto.appendChild(photo)
                 card.appendChild(divPhoto)
 
+                const games = createDataElement('Jogos', todosDados[dadosJogadores][2])
                 const win = createDataElement('WinRate', todosDados[dadosJogadores][3])
                 const kda = createDataElement('KDA', todosDados[dadosJogadores][5])
                 const kp = createDataElement('KP%', todosDados[dadosJogadores][10])
 
+                card.appendChild(games)
                 card.appendChild(win)
                 card.appendChild(kda)
                 card.appendChild(kp)
