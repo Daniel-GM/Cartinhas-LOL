@@ -22,123 +22,58 @@ document.addEventListener("DOMContentLoaded", function () {
     async function printJogadores() {
         const roles = ["top.json", "jungle.json", "mid.json", "bot.json", "support.json"]
 
-        async function getDados() {
-            let dados = await todosJogadores()
-            let score = await getScore()
-            return {dados, score}
+        const dados = await printTodosJogadores()
+        const todosDados = await todosJogadores()
+
+        for (const role of roles) {
+            const data = await jogadores(role)
+            const players = JSON.parse(data)
+            
+            for (const player of players) {
+                const playerName = player.Player
+                const timeKey = player.time.replace(/ /g, '').replace(/!/g, '').toLowerCase()
+                const jogadorTable = document.querySelector(`.${timeKey}`)
+                const dadosJogadores = todosDados.findIndex(score => score[0] === playerName)
+                const score = dados.findIndex(score => score.jogador === playerName)
+                const scorePlayer = dados[score].media
+
+                const card = document.createElement('div')
+                card.style.width = "220px"
+                card.classList = "col text-center cardJogador"
+
+                const divName = document.createElement('div')
+                divName.classList = "text-center"
+                const name = document.createElement('span')
+                name.textContent = playerName
+                divName.appendChild(name)
+                card.appendChild(divName)
+
+                const divScore = document.createElement('div')
+                divScore.classList = "text-center"
+                const scoreElement = document.createElement('span')
+                scoreElement.textContent = scorePlayer.toFixed(0)
+                divScore.appendChild(scoreElement)
+                card.appendChild(divScore)
+
+                const divPhoto = document.createElement('div')
+                const photo = document.createElement('img')
+                photo.src = `img/${playerName}.webp`
+                photo.style.width = "220px"
+                photo.style.height = "156px"
+                divPhoto.appendChild(photo)
+                card.appendChild(divPhoto)
+
+                const win = createDataElement('WinRate', todosDados[dadosJogadores][3])
+                const kda = createDataElement('KDA', todosDados[dadosJogadores][5])
+                const kp = createDataElement('KP%', todosDados[dadosJogadores][10])
+
+                card.appendChild(win)
+                card.appendChild(kda)
+                card.appendChild(kp)
+
+                jogadorTable.appendChild(card)
+            }
         }
-
-        async function getScore() {
-            let score = await printTodosJogadores()
-            return score
-        }
-
-        await roles.forEach(role => {
-            jogadores(role)
-                .then(data => {
-                    data = JSON.parse(data)
-                    for (let index = 0; index < data.length; index++) {
-                        getDados().then(result  => {
-                            const timeKey = data[index].time.replace(/ /g, '').replace(/!/g, '').toLowerCase()
-                            const jogadorTable = document.querySelector(`.${timeKey}`)
-                            const playerIndex = result.dados.findIndex(score => score[0] === data[index].Player);
-                            const scoreIndex = result.score.findIndex(score => score.jogador === data[index].Player);
-                            const scorePlayer = result.score[scoreIndex].media
-
-                            /* cardJogador */
-                            const card = document.createElement('div')
-                            card.style.width = "220px"
-                            card.classList = "col text-center cardJogador"
-
-                            /* nome */
-                            const divName = document.createElement('div')
-                            divName.classList = "text-center"
-
-                            const name = document.createElement('span')
-                            name.textContent = data[index].Player
-
-                            divName.appendChild(name)
-                            card.appendChild(divName)
-
-                            /* Score */
-                            const divScore = document.createElement('div')
-                            divScore.classList = "text-center"
-
-                            
-                            const score = document.createElement('span')
-                            score.textContent = scorePlayer.toFixed(0)
-
-                            divScore.appendChild(score)
-                            card.appendChild(divScore)
-
-
-                            /* imagem */
-                            const divPhoto = document.createElement('div')
-                            const photo = document.createElement('img')
-
-                            photo.src = `img/${data[index].Player}.webp`
-                            photo.style.width = "220px"
-                            photo.style.height = "156px"
-
-                            divPhoto.appendChild(photo)
-                            card.appendChild(divPhoto)
-
-                            /* Winrate  */
-                            const win = document.createElement('div')
-                            const spanWin = document.createElement('div')
-                            const divWin = document.createElement('div')
-
-                            win.textContent = `WinRate`
-                            spanWin.textContent = `${result.dados[playerIndex][3]}`
-
-                            divWin.classList = "row data"
-                            spanWin.classList = "col-5"
-                            win.classList = "col-7"
-
-                            divWin.appendChild(win)
-                            divWin.appendChild(spanWin)
-                            card.appendChild(divWin)
-
-                            /* KDA  */
-                            const Kda = document.createElement('div')
-                            const spanKda = document.createElement('div')
-                            const divKda = document.createElement('div')
-
-                            Kda.textContent = `KDA`
-                            spanKda.textContent = `${result.dados[playerIndex][5]}`
-
-                            divKda.classList = "row data"
-                            spanKda.classList = "col-5"
-                            Kda.classList = "col-7"
-
-                            divKda.appendChild(Kda)
-                            divKda.appendChild(spanKda)
-                            card.appendChild(divKda)
-
-                            /* KP%  */
-                            const kp = document.createElement('div')
-                            const spanKp = document.createElement('div')
-                            const divKp = document.createElement('div')
-
-                            kp.textContent = `KP%`
-                            spanKp.textContent = `${result.dados[playerIndex][10]}`
-
-                            divKp.classList = "row data"
-                            spanKp.classList = "col-5"
-                            kp.classList = "col-7"
-
-                            divKp.appendChild(kp)
-                            divKp.appendChild(spanKp)
-                            card.appendChild(divKp)
-
-
-                            
-                            jogadorTable.appendChild(card)
-                        })
-                    }
-                })
-                .catch(error => console.error("Erro ao obter os dados dos times:", error))
-        });
     }
 
     function printTodosJogadores() {
@@ -264,7 +199,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         //     console.log(`${item.jogador}: ${item.media.toFixed(0)}`)
                         // })
                     })
-                    return ranking
+                return ranking
             })
             .catch(error => {
                 console.error('Erro ao buscar dados dos jogadores:', error)
@@ -277,6 +212,24 @@ document.addEventListener("DOMContentLoaded", function () {
         maxMin = max - min
         score = (pontuacao / maxMin) * maxScore
         return score
+    }
+
+    function createDataElement(label, value) {
+        const div = document.createElement('div');
+        const spanLabel = document.createElement('div');
+        const spanValue = document.createElement('div');
+
+        spanLabel.textContent = label;
+        spanValue.textContent = value;
+
+        div.classList = "row data";
+        spanLabel.classList = "col-5";
+        spanValue.classList = "col-7";
+
+        div.appendChild(spanLabel);
+        div.appendChild(spanValue);
+
+        return div;
     }
 
     printTimes()
