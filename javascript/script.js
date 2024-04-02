@@ -39,8 +39,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     data = JSON.parse(data)
                     for (let index = 0; index < data.length; index++) {
                         getDados().then(result  => {
-                            // console.log(result.dados)
-                            // debugger
                             const timeKey = data[index].time.replace(/ /g, '').replace(/!/g, '').toLowerCase()
                             const jogadorTable = document.querySelector(`.${timeKey}`)
                             const playerIndex = result.dados.findIndex(score => score[0] === data[index].Player);
