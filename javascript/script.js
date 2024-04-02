@@ -75,7 +75,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             const divPhoto = document.createElement('div')
                             const photo = document.createElement('img')
 
-                            photo.src = `../img/${data[index].Player}.webp`
+                            photo.src = `img/${data[index].Player}.webp`
                             photo.style.width = "220px"
                             photo.style.height = "156px"
 
