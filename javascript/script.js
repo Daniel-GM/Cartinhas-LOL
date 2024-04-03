@@ -155,7 +155,52 @@ document.addEventListener("DOMContentLoaded", function () {
 
     async function mvp() {
         const dados = await printTodosJogadores()
-        console.log(dados[0])
+        const todosDados = await todosJogadores()
+
+        const dadosJogadores = todosDados.findIndex(score => score[0] === dados[0].jogador)
+        console.log(todosDados[dadosJogadores])
+
+        const jogadorTable = document.querySelector(".mvp")
+        const playerName = dados[0].jogador
+        const scorePlayer = dados[0].media
+
+        const card = document.createElement('div')
+        card.style.width = "220px"
+        card.classList = "col text-center cardJogador"
+
+        const divName = document.createElement('div')
+        divName.classList = "text-center"
+        const name = document.createElement('span')
+        name.textContent = playerName
+        divName.appendChild(name)
+        card.appendChild(divName)
+
+        const divScore = document.createElement('div')
+        divScore.classList = "text-center"
+        const scoreElement = document.createElement('span')
+        scoreElement.textContent = scorePlayer.toFixed(0)
+        divScore.appendChild(scoreElement)
+        card.appendChild(divScore)
+
+        const divPhoto = document.createElement('div')
+        const photo = document.createElement('img')
+        photo.src = `img/${playerName}.webp`
+        photo.style.width = "220px"
+        photo.style.height = "156px"
+        divPhoto.appendChild(photo)
+        card.appendChild(divPhoto)
+
+        const games = createDataElement('Jogos', todosDados[dadosJogadores][2])
+        const win = createDataElement('WinRate', todosDados[dadosJogadores][3])
+        const kda = createDataElement('KDA', todosDados[dadosJogadores][5])
+        const kp = createDataElement('KP%', todosDados[dadosJogadores][10])
+
+        card.appendChild(games)
+        card.appendChild(win)
+        card.appendChild(kda)
+        card.appendChild(kp)
+
+        jogadorTable.appendChild(card)
     }
 
     function printTodosJogadores() {
