@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", function () {
         for (const role of roles) {
             const data = await jogadores(role)
             const players = JSON.parse(data)
-            
+
 
             for (const player of players) {
                 const playerName = player.Player
@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 card.style.width = "220px"
                 card.classList = "col text-center cardJogador"
 
-                
+
 
                 const divName = document.createElement('div')
                 divName.classList = "text-center"
@@ -79,6 +79,83 @@ document.addEventListener("DOMContentLoaded", function () {
                 jogadorTable.appendChild(card)
             }
         }
+    }
+
+    async function dreamTeam() {
+        const roles = ["top.json", "jungle.json", "mid.json", "bot.json", "support.json"]
+
+        const dados = await printTodosJogadores()
+        const todosDados = await todosJogadores()
+
+        let melhorLaner
+        let dreamTeam = []
+
+        for (const role of roles) {
+            const data = await jogadores(role)
+            const players = JSON.parse(data)
+            let filterPlayers = []
+
+            for (let index = 0; index < players.length; index++) {
+                filterPlayers.push(players[index].Player)
+            }
+
+            for (let index = 0; index < dados.length; index++) {
+                melhorLaner = filterPlayers.findIndex(score => score == dados[index].jogador)
+                if (melhorLaner != -1) {
+                    index = dados.length
+                    dreamTeam.push(filterPlayers[melhorLaner])
+                }
+            }
+
+            const jogadorTable = document.querySelector(".dreamTeam")
+            const playerName = dreamTeam[dreamTeam.length - 1]
+            const dadosJogadores = todosDados.findIndex(score => score[0] === playerName)
+            const score = dados.findIndex(score => score.jogador === playerName)
+            const scorePlayer = dados[score].media
+
+            const card = document.createElement('div')
+            card.style.width = "220px"
+            card.classList = "col text-center cardJogador"
+
+            const divName = document.createElement('div')
+            divName.classList = "text-center"
+            const name = document.createElement('span')
+            name.textContent = playerName
+            divName.appendChild(name)
+            card.appendChild(divName)
+
+            const divScore = document.createElement('div')
+            divScore.classList = "text-center"
+            const scoreElement = document.createElement('span')
+            scoreElement.textContent = scorePlayer.toFixed(0)
+            divScore.appendChild(scoreElement)
+            card.appendChild(divScore)
+
+            const divPhoto = document.createElement('div')
+            const photo = document.createElement('img')
+            photo.src = `img/${playerName}.webp`
+            photo.style.width = "220px"
+            photo.style.height = "156px"
+            divPhoto.appendChild(photo)
+            card.appendChild(divPhoto)
+
+            const games = createDataElement('Jogos', todosDados[dadosJogadores][2])
+            const win = createDataElement('WinRate', todosDados[dadosJogadores][3])
+            const kda = createDataElement('KDA', todosDados[dadosJogadores][5])
+            const kp = createDataElement('KP%', todosDados[dadosJogadores][10])
+
+            card.appendChild(games)
+            card.appendChild(win)
+            card.appendChild(kda)
+            card.appendChild(kp)
+
+            jogadorTable.appendChild(card)
+        }
+    }
+
+    async function mvp() {
+        const dados = await printTodosJogadores()
+        console.log(dados[0])
     }
 
     function printTodosJogadores() {
@@ -239,4 +316,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     printTimes()
     printJogadores()
+    dreamTeam()
+    mvp()
 })
