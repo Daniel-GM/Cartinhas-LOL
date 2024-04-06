@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 card.appendChild(divName)
 
                 const divScore = document.createElement('div')
-                divScore.classList = "text-center"
+                divScore.classList = "text-center scorePlayer"
                 const scoreElement = document.createElement('span')
                 scoreElement.textContent = scorePlayer.toFixed(0)
                 divScore.appendChild(scoreElement)
@@ -79,6 +79,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 jogadorTable.appendChild(card)
             }
         }
+        
+        scoreTimes()
     }
 
     async function dreamTeam() {
@@ -357,6 +359,34 @@ document.addEventListener("DOMContentLoaded", function () {
         div.appendChild(spanValue);
 
         return div;
+    }
+
+    function scoreTimes() {
+        const scoreTimes = document.querySelectorAll("#times .scorePlayer")
+        const totalScoreTime = []
+        let index = 0
+        let aux = 0
+
+        scoreTimes.forEach(scoreTime => {
+            if (aux == 0) {
+                totalScoreTime[index] = 0
+            }
+            const valor = scoreTime.textContent
+            totalScoreTime[index] += parseInt(valor)
+            aux++
+            if (aux == 5) {
+                totalScoreTime[index] /= aux
+                aux = 0
+                index++
+            }
+        })
+
+        const times = document.querySelectorAll("#times .tabelasTimes h1")
+        times.forEach(time => {
+            time.textContent += ` - ${totalScoreTime[aux].toFixed(0)}`
+            console.log(time)
+            aux++
+        })
     }
 
     printTimes()
