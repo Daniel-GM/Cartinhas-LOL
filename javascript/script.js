@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 cardComplete.onclick = function() {
                     this.classList.toggle('flipped')
                 }
-                cardComplete.style.backgroundImage = "url('../img/campeao/RiotX_ChampionList_" + player.Campeao.Champion.toLowerCase() + ".jpg')";
+                cardComplete.style.backgroundImage = "url('img/campeao/RiotX_ChampionList_" + player.Campeao.Champion.toLowerCase() + ".jpg')";
                 cardComplete.style.backgroundSize = "cover"
                 cardComplete.style.backgroundPosition = "center"
                 cardComplete.style.backgroundRepeat = "no-repeat"
@@ -143,7 +143,7 @@ document.addEventListener("DOMContentLoaded", function () {
             cardComplete.onclick = function() {
                 this.classList.toggle('flipped')
             }
-            cardComplete.style.backgroundImage = "url('../img/campeao/RiotX_ChampionList_" + players[indexPlayers].Campeao.Champion.toLowerCase() + ".jpg')";
+            cardComplete.style.backgroundImage = "url('img/campeao/RiotX_ChampionList_" + players[indexPlayers].Campeao.Champion.toLowerCase() + ".jpg')";
             cardComplete.style.backgroundSize = "cover"
             cardComplete.style.backgroundPosition = "center"
             cardComplete.style.backgroundRepeat = "no-repeat"
@@ -219,7 +219,7 @@ document.addEventListener("DOMContentLoaded", function () {
         cardComplete.onclick = function() {
             this.classList.toggle('flipped')
         }
-        cardComplete.style.backgroundImage = "url('../img/campeao/RiotX_ChampionList_" + campeaoMVP.Campeao.Champion.toLowerCase() + ".jpg')";
+        cardComplete.style.backgroundImage = "url('img/campeao/RiotX_ChampionList_" + campeaoMVP.Campeao.Champion.toLowerCase() + ".jpg')";
         cardComplete.style.backgroundSize = "cover"
         cardComplete.style.backgroundPosition = "center"
         cardComplete.style.backgroundRepeat = "no-repeat"
