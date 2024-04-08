@@ -38,11 +38,25 @@ document.addEventListener("DOMContentLoaded", function () {
                 const score = dados.findIndex(score => score.jogador === playerName)
                 const scorePlayer = dados[score].media
 
+                const cardComplete = document.createElement('div')
+                cardComplete.style.width = "232px"
+                cardComplete.classList = "col text-center cardComplete"
+                cardComplete.onclick = function() {
+                    this.classList.toggle('flipped')
+                }
+                cardComplete.style.backgroundImage = "url('../img/campeao/RiotX_ChampionList_" + player.Campeao.Champion.toLowerCase() + ".jpg')";
+                cardComplete.style.backgroundSize = "cover"
+                cardComplete.style.backgroundPosition = "center"
+                cardComplete.style.backgroundRepeat = "no-repeat"
+
+
                 const card = document.createElement('div')
-                card.style.width = "220px"
+                card.style.width = "232px"
                 card.classList = "col text-center cardJogador"
 
-
+                const cardChampion = document.createElement('div')
+                cardChampion.style.width = "232px"
+                cardChampion.classList = "col text-center cardChampion"
 
                 const divName = document.createElement('div')
                 divName.classList = "text-center"
@@ -61,7 +75,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 const divPhoto = document.createElement('div')
                 const photo = document.createElement('img')
                 photo.src = `img/${playerName}.webp`
-                photo.style.width = "220px"
+                photo.style.width = "232px"
                 photo.style.height = "156px"
                 divPhoto.appendChild(photo)
                 card.appendChild(divPhoto)
@@ -76,7 +90,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 card.appendChild(kda)
                 card.appendChild(kp)
 
-                jogadorTable.appendChild(card)
+                cardComplete.appendChild(card)
+                cardComplete.appendChild(cardChampion)
+                jogadorTable.appendChild(cardComplete)
             }
         }
         
@@ -97,6 +113,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const players = JSON.parse(data)
             let filterPlayers = []
 
+
             for (let index = 0; index < players.length; index++) {
                 filterPlayers.push(players[index].Player)
             }
@@ -114,10 +131,22 @@ document.addEventListener("DOMContentLoaded", function () {
             const dadosJogadores = todosDados.findIndex(score => score[0] === playerName)
             const score = dados.findIndex(score => score.jogador === playerName)
             const scorePlayer = dados[score].media
+            const indexPlayers = players.findIndex(score => score.Player === playerName)
 
             const card = document.createElement('div')
             card.style.width = "220px"
             card.classList = "col text-center cardJogador"
+
+            const cardComplete = document.createElement('div')
+            cardComplete.style.width = "232px"
+            cardComplete.classList = "col text-center cardComplete"
+            cardComplete.onclick = function() {
+                this.classList.toggle('flipped')
+            }
+            cardComplete.style.backgroundImage = "url('../img/campeao/RiotX_ChampionList_" + players[indexPlayers].Campeao.Champion.toLowerCase() + ".jpg')";
+            cardComplete.style.backgroundSize = "cover"
+            cardComplete.style.backgroundPosition = "center"
+            cardComplete.style.backgroundRepeat = "no-repeat"
 
             const divName = document.createElement('div')
             divName.classList = "text-center"
@@ -151,24 +180,49 @@ document.addEventListener("DOMContentLoaded", function () {
             card.appendChild(kda)
             card.appendChild(kp)
 
-            jogadorTable.appendChild(card)
+            cardComplete.appendChild(card)
+            jogadorTable.appendChild(cardComplete)
         }
     }
 
     async function mvp() {
+        let campeaoMVP
+        const roles = ["top.json", "jungle.json", "mid.json", "bot.json", "support.json"]
+
         const dados = await printTodosJogadores()
         const todosDados = await todosJogadores()
-
-        const dadosJogadores = todosDados.findIndex(score => score[0] === dados[0].jogador)
-        console.log(todosDados[dadosJogadores])
-
         const jogadorTable = document.querySelector(".mvp")
         const playerName = dados[0].jogador
         const scorePlayer = dados[0].media
 
+        const dadosJogadores = todosDados.findIndex(score => score[0] === dados[0].jogador)
+
+        for (const role of roles) {
+            const data = await jogadores(role)
+            const players = JSON.parse(data)
+        
+            const indexPlayers = players.findIndex(score => score.Player === playerName)
+        
+            if (indexPlayers !== -1) {
+                campeaoMVP = players[indexPlayers]
+                break
+            }
+        }
+
         const card = document.createElement('div')
         card.style.width = "220px"
         card.classList = "col text-center cardJogador"
+
+        const cardComplete = document.createElement('div')
+        cardComplete.style.width = "232px"
+        cardComplete.classList = "col text-center cardComplete"
+        cardComplete.onclick = function() {
+            this.classList.toggle('flipped')
+        }
+        cardComplete.style.backgroundImage = "url('../img/campeao/RiotX_ChampionList_" + campeaoMVP.Campeao.Champion.toLowerCase() + ".jpg')";
+        cardComplete.style.backgroundSize = "cover"
+        cardComplete.style.backgroundPosition = "center"
+        cardComplete.style.backgroundRepeat = "no-repeat"
 
         const divName = document.createElement('div')
         divName.classList = "text-center"
@@ -202,7 +256,8 @@ document.addEventListener("DOMContentLoaded", function () {
         card.appendChild(kda)
         card.appendChild(kp)
 
-        jogadorTable.appendChild(card)
+        cardComplete.appendChild(card)
+        jogadorTable.appendChild(cardComplete)
     }
 
     function printTodosJogadores() {
@@ -324,9 +379,6 @@ document.addEventListener("DOMContentLoaded", function () {
                         })
 
                         ranking.sort((a, b) => b.media - a.media)
-                        // ranking.forEach(item => {
-                        //     console.log(`${item.jogador}: ${item.media.toFixed(0)}`)
-                        // })
                     })
                 return ranking
             })
@@ -352,8 +404,8 @@ document.addEventListener("DOMContentLoaded", function () {
         spanValue.textContent = value;
 
         div.classList = "row data";
-        spanLabel.classList = "col-5";
-        spanValue.classList = "col-7";
+        spanLabel.classList = "col";
+        spanValue.classList = "col";
 
         div.appendChild(spanLabel);
         div.appendChild(spanValue);
@@ -384,7 +436,6 @@ document.addEventListener("DOMContentLoaded", function () {
         const times = document.querySelectorAll("#times .tabelasTimes h1")
         times.forEach(time => {
             time.textContent += ` - ${totalScoreTime[aux].toFixed(0)}`
-            console.log(time)
             aux++
         })
     }
