@@ -274,38 +274,21 @@ document.addEventListener("DOMContentLoaded", function () {
                 })
 
                 const player = []
-                const winrate = []
-                const kda = []
-                const csm = []
-                const gpm = []
-                const kp = []
-                const gd = []
-                const csd = []
-                const xpd = []
                 const ranking = []
 
                 await todosJogadores()
                     .then(data => {
                         data.forEach(row => {
                             player.push(row[0])
-                            winrate.push(parseFloat(row[3].replace('%', '')))
-                            kda.push(row[4])
-                            csm.push(row[8])
-                            gpm.push(row[9])
-                            kp.push(parseFloat(row[10].replace('%', '')))
-                            gd.push(row[17])
-                            csd.push(row[18])
-                            xpd.push(row[19])
                             row[24] = groupRole.find(player => player.Player === row[0]).Role
                         })
 
                         const maiorMenor = {
                             winrate: {},
                             kda: {},
-                            csm: {},
-                            gpm: {},
                             kp: {},
-                            dmg: {},
+                            wpm: {},
+                            wcpm: {},
                             gd: {},
                             csd: {},
                             xpd: {}
@@ -314,10 +297,9 @@ document.addEventListener("DOMContentLoaded", function () {
                         roles.forEach(role => {
                             maiorMenor.winrate[role] = { max: -Infinity, min: Infinity }
                             maiorMenor.kda[role] = { max: -Infinity, min: Infinity }
-                            maiorMenor.csm[role] = { max: -Infinity, min: Infinity }
-                            maiorMenor.gpm[role] = { max: -Infinity, min: Infinity }
                             maiorMenor.kp[role] = { max: -Infinity, min: Infinity }
-                            maiorMenor.dmg[role] = { max: -Infinity, min: Infinity }
+                            maiorMenor.wpm[role] = { max: -Infinity, min: Infinity }
+                            maiorMenor.wcpm[role] = { max: -Infinity, min: Infinity }
                             maiorMenor.gd[role] = { max: -Infinity, min: Infinity }
                             maiorMenor.csd[role] = { max: -Infinity, min: Infinity }
                             maiorMenor.xpd[role] = { max: -Infinity, min: Infinity }
@@ -326,22 +308,29 @@ document.addEventListener("DOMContentLoaded", function () {
                         data.forEach(row => {
                             const currentRole = groupRole.find(player => player.Player === row[0]).Role
                             const role = currentRole + '.json'
+                            
                             maiorMenor.winrate[role].max = Math.max(maiorMenor.winrate[role].max, parseFloat(row[3].replace('%', '')))
                             maiorMenor.winrate[role].min = Math.min(maiorMenor.winrate[role].min, parseFloat(row[3].replace('%', '')))
+
                             maiorMenor.kda[role].max = Math.max(maiorMenor.kda[role].max, row[4])
                             maiorMenor.kda[role].min = Math.min(maiorMenor.kda[role].min, row[4])
-                            maiorMenor.csm[role].max = Math.max(maiorMenor.csm[role].max, row[8])
-                            maiorMenor.csm[role].min = Math.min(maiorMenor.csm[role].min, row[8])
-                            maiorMenor.gpm[role].max = Math.max(maiorMenor.gpm[role].max, row[9])
-                            maiorMenor.gpm[role].min = Math.min(maiorMenor.gpm[role].min, row[9])
+
                             maiorMenor.kp[role].max = Math.max(maiorMenor.kp[role].max, parseFloat(row[10].replace('%', '')))
                             maiorMenor.kp[role].min = Math.min(maiorMenor.kp[role].min, parseFloat(row[10].replace('%', '')))
-                            maiorMenor.dmg[role].max = Math.max(maiorMenor.dmg[role].max, parseFloat(row[11].replace('%', '')))
-                            maiorMenor.dmg[role].min = Math.min(maiorMenor.dmg[role].min, parseFloat(row[11].replace('%', '')))
+
+
+                            maiorMenor.wpm[role].max = Math.max(maiorMenor.wpm[role].max, row[14])
+                            maiorMenor.wpm[role].min = Math.min(maiorMenor.wpm[role].min, row[14])
+
+                            maiorMenor.wcpm[role].max = Math.max(maiorMenor.wcpm[role].max, row[15])
+                            maiorMenor.wcpm[role].min = Math.min(maiorMenor.wcpm[role].min, row[15])
+                            
                             maiorMenor.gd[role].max = Math.max(maiorMenor.gd[role].max, row[17])
                             maiorMenor.gd[role].min = Math.min(maiorMenor.gd[role].min, row[17])
+
                             maiorMenor.csd[role].max = Math.max(maiorMenor.csd[role].max, row[18])
                             maiorMenor.csd[role].min = Math.min(maiorMenor.csd[role].min, row[18])
+
                             maiorMenor.xpd[role].max = Math.max(maiorMenor.xpd[role].max, row[19])
                             maiorMenor.xpd[role].min = Math.min(maiorMenor.xpd[role].min, row[19])
                         })
@@ -349,35 +338,34 @@ document.addEventListener("DOMContentLoaded", function () {
                         for (let role in maiorMenor.winrate) {
                             maiorMenor.winrate[role] = [maiorMenor.winrate[role].max, maiorMenor.winrate[role].min]
                             maiorMenor.kda[role] = [maiorMenor.kda[role].max, maiorMenor.kda[role].min]
-                            maiorMenor.csm[role] = [maiorMenor.csm[role].max, maiorMenor.csm[role].min]
-                            maiorMenor.gpm[role] = [maiorMenor.gpm[role].max, maiorMenor.gpm[role].min]
                             maiorMenor.kp[role] = [maiorMenor.kp[role].max, maiorMenor.kp[role].min]
-                            maiorMenor.dmg[role] = [maiorMenor.dmg[role].max, maiorMenor.dmg[role].min]
+                            maiorMenor.wpm[role] = [maiorMenor.wpm[role].max, maiorMenor.wpm[role].min]
+                            maiorMenor.wcpm[role] = [maiorMenor.wcpm[role].max, maiorMenor.wcpm[role].min]
                             maiorMenor.gd[role] = [maiorMenor.gd[role].max, maiorMenor.gd[role].min]
                             maiorMenor.csd[role] = [maiorMenor.csd[role].max, maiorMenor.csd[role].min]
                             maiorMenor.xpd[role] = [maiorMenor.xpd[role].max, maiorMenor.xpd[role].min]
                         }
 
+                        const percentualBase = [40, 12.5, 12.5, 12.5, 12.5, 3.3, 3.3, 3.4]
+
                         data.forEach(row => {
                             const score = []
-                            score.push(gerarScore(parseFloat(row[3].replace('%', '')), maiorMenor.winrate[row[24] + '.json'][0], maiorMenor.winrate[row[24] + '.json'][1]))
-                            score.push(gerarScore(row[4], maiorMenor.kda[row[24] + '.json'][0], maiorMenor.kda[row[24] + '.json'][1]))
-                            score.push(gerarScore(row[8], maiorMenor.csm[row[24] + '.json'][0], maiorMenor.csm[row[24] + '.json'][1]))
-                            score.push(gerarScore(row[9], maiorMenor.gpm[row[24] + '.json'][0], maiorMenor.gpm[row[24] + '.json'][1]))
-                            score.push(gerarScore(parseFloat(row[10].replace('%', '')), maiorMenor.kp[row[24] + '.json'][0], maiorMenor.kp[row[24] + '.json'][1]))
-                            score.push(gerarScore(parseFloat(row[11].replace('%', '')), maiorMenor.dmg[row[24] + '.json'][0], maiorMenor.dmg[row[24] + '.json'][1]))
-                            score.push(gerarScore(row[17], maiorMenor.gd[row[24] + '.json'][0], maiorMenor.gd[row[24] + '.json'][1]))
-                            score.push(gerarScore(row[18], maiorMenor.csd[row[24] + '.json'][0], maiorMenor.csd[row[24] + '.json'][1]))
-                            score.push(gerarScore(row[19], maiorMenor.xpd[row[24] + '.json'][0], maiorMenor.xpd[row[24] + '.json'][1]))
+                            score.push(gerarScore(parseFloat(row[3].replace('%', '')), maiorMenor.winrate[row[24] + '.json'][0], 0, percentualBase[0]))
+                            score.push(gerarScore(row[4], maiorMenor.kda[row[24] + '.json'][0], 0, percentualBase[1]))
+                            score.push(gerarScore(parseFloat(row[10].replace('%', '')), maiorMenor.kp[row[24] + '.json'][0], 0, percentualBase[2]))
+                            score.push(gerarScore(row[14], maiorMenor.wpm[row[24] + '.json'][0], 0, percentualBase[3]))
+                            score.push(gerarScore(row[15], maiorMenor.wcpm[row[24] + '.json'][0], 0, percentualBase[4]))
+                            score.push(gerarScore(row[17], maiorMenor.gd[row[24] + '.json'][0], maiorMenor.gd[row[24] + '.json'][1], percentualBase[5]))
+                            score.push(gerarScore(row[18], maiorMenor.csd[row[24] + '.json'][0], maiorMenor.csd[row[24] + '.json'][1], percentualBase[6]))
+                            score.push(gerarScore(row[19], maiorMenor.xpd[row[24] + '.json'][0], maiorMenor.xpd[row[24] + '.json'][1], percentualBase[7]))
 
+                            
                             let media = 0
                             for (let index = 0; index < score.length; index++) {
                                 media += score[index]
-                            }
-                            media /= score.length
+                            }                            
                             ranking.push({ jogador: row[0], media: media })
                         })
-
                         ranking.sort((a, b) => b.media - a.media)
                     })
                 return ranking
@@ -387,8 +375,8 @@ document.addEventListener("DOMContentLoaded", function () {
             })
     }
 
-    function gerarScore(valor, max, min) {
-        let score, pontuacao, maxMin, maxScore = 100
+    function gerarScore(valor, max, min, percentual) {
+        let score, pontuacao, maxMin, maxScore = percentual
         pontuacao = valor - min
         maxMin = max - min
         score = (pontuacao / maxMin) * maxScore
