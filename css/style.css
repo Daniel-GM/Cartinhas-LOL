@@ -46,6 +46,8 @@ h2, div {
 
     max-width: 234px;
     max-height: 345.56px;
+    min-width: 234px;
+    min-height: 345.56px;
     border: none !important;
     display: flex;
     margin: 0 15px;

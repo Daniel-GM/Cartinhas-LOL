@@ -38,71 +38,19 @@ document.addEventListener("DOMContentLoaded", function () {
                 const score = dados.findIndex(score => score.jogador === playerName)
                 const scorePlayer = dados[score].media
 
-                const cardComplete = document.createElement('div')
-                cardComplete.style.width = "232px"
-                cardComplete.classList = "col text-center cardComplete"
-                cardComplete.onclick = function() {
-                    this.classList.toggle('flipped')
-                }
-                cardComplete.style.backgroundImage = "url('img/campeao/RiotX_ChampionList_" + player.Campeao.Champion.toLowerCase() + ".jpg')";
-                cardComplete.style.backgroundSize = "cover"
-                cardComplete.style.backgroundPosition = "center"
-                cardComplete.style.backgroundRepeat = "no-repeat"
-
-
-                const card = document.createElement('div')
-                card.style.width = "232px"
-                card.classList = "col text-center cardJogador"
-
-                const cardChampion = document.createElement('div')
-                cardChampion.style.width = "232px"
-                cardChampion.classList = "col text-center cardChampion"
-
-                const divName = document.createElement('div')
-                divName.classList = "text-center"
-                const name = document.createElement('span')
-                name.textContent = playerName
-                divName.appendChild(name)
-                card.appendChild(divName)
-
-                const divScore = document.createElement('div')
-                divScore.classList = "text-center scorePlayer"
-                const scoreElement = document.createElement('span')
-                scoreElement.textContent = scorePlayer.toFixed(0)
-                divScore.appendChild(scoreElement)
-                card.appendChild(divScore)
-
-                const divPhoto = document.createElement('div')
-                divPhoto.className = "photo-player"
-                const photo = document.createElement('img')
-                photo.src = `img/${playerName}.webp`
-                photo.style.width = "232px"
-                photo.style.height = "156px"
-                divPhoto.appendChild(photo)
-                card.appendChild(divPhoto)
-                
-                const country = document.createElement('img')
-                country.className = "country-class"
-                country.src = `img/country/${todosDados[dadosJogadores][1]}.png`
-                divPhoto.appendChild(country)
-
-
-                const games = createDataElement('Jogos', todosDados[dadosJogadores][2])
-                const win = createDataElement('WinRate', todosDados[dadosJogadores][3])
-                const kda = createDataElement('KDA', todosDados[dadosJogadores][5])
-                const kp = createDataElement('KP%', todosDados[dadosJogadores][10])
-
-                card.appendChild(games)
-                card.appendChild(win)
-                card.appendChild(kda)
-                card.appendChild(kp)
-
-                cardComplete.appendChild(card)
-                cardComplete.appendChild(cardChampion)
-                jogadorTable.appendChild(cardComplete)
+                gerarCarta(
+                    player.Campeao.Champion, 
+                    playerName, 
+                    todosDados[dadosJogadores][1],
+                    todosDados[dadosJogadores][2], 
+                    todosDados[dadosJogadores][3], 
+                    todosDados[dadosJogadores][5], 
+                    todosDados[dadosJogadores][10], 
+                    scorePlayer,
+                    jogadorTable
+                )
             }
         }
-        
         scoreTimes()
     }
 
@@ -140,61 +88,19 @@ document.addEventListener("DOMContentLoaded", function () {
             const scorePlayer = dados[score].media
             const indexPlayers = players.findIndex(score => score.Player === playerName)
 
-            const card = document.createElement('div')
-            card.style.width = "220px"
-            card.classList = "col text-center cardJogador"
+            console.log(dreamTeam)
 
-            const cardComplete = document.createElement('div')
-            cardComplete.style.width = "232px"
-            cardComplete.classList = "col text-center cardComplete"
-            cardComplete.onclick = function() {
-                this.classList.toggle('flipped')
-            }
-            cardComplete.style.backgroundImage = "url('img/campeao/RiotX_ChampionList_" + players[indexPlayers].Campeao.Champion.toLowerCase() + ".jpg')";
-            cardComplete.style.backgroundSize = "cover"
-            cardComplete.style.backgroundPosition = "center"
-            cardComplete.style.backgroundRepeat = "no-repeat"
-
-            const divName = document.createElement('div')
-            divName.classList = "text-center"
-            const name = document.createElement('span')
-            name.textContent = playerName
-            divName.appendChild(name)
-            card.appendChild(divName)
-
-            const divScore = document.createElement('div')
-            divScore.classList = "text-center"
-            const scoreElement = document.createElement('span')
-            scoreElement.textContent = scorePlayer.toFixed(0)
-            divScore.appendChild(scoreElement)
-            card.appendChild(divScore)
-
-            const divPhoto = document.createElement('div')
-            divPhoto.className = "photo-player"
-            const photo = document.createElement('img')
-            photo.src = `img/${playerName}.webp`
-            photo.style.width = "220px"
-            photo.style.height = "156px"
-            divPhoto.appendChild(photo)
-            card.appendChild(divPhoto)
-
-            const country = document.createElement('img')
-            country.className = "country-class"
-            country.src = `img/country/${todosDados[dadosJogadores][1]}.png`
-            divPhoto.appendChild(country)
-
-            const games = createDataElement('Jogos', todosDados[dadosJogadores][2])
-            const win = createDataElement('WinRate', todosDados[dadosJogadores][3])
-            const kda = createDataElement('KDA', todosDados[dadosJogadores][5])
-            const kp = createDataElement('KP%', todosDados[dadosJogadores][10])
-
-            card.appendChild(games)
-            card.appendChild(win)
-            card.appendChild(kda)
-            card.appendChild(kp)
-
-            cardComplete.appendChild(card)
-            jogadorTable.appendChild(cardComplete)
+            gerarCarta(
+                players[indexPlayers].Campeao.Champion, 
+                playerName, 
+                todosDados[dadosJogadores][1],
+                todosDados[dadosJogadores][2], 
+                todosDados[dadosJogadores][3], 
+                todosDados[dadosJogadores][5], 
+                todosDados[dadosJogadores][10], 
+                scorePlayer,
+                jogadorTable
+            )
         }
     }
 
@@ -213,70 +119,26 @@ document.addEventListener("DOMContentLoaded", function () {
         for (const role of roles) {
             const data = await jogadores(role)
             const players = JSON.parse(data)
-        
+
             const indexPlayers = players.findIndex(score => score.Player === playerName)
-        
+
             if (indexPlayers !== -1) {
                 campeaoMVP = players[indexPlayers]
                 break
             }
         }
 
-        const card = document.createElement('div')
-        card.style.width = "220px"
-        card.classList = "col text-center cardJogador"
-
-        const cardComplete = document.createElement('div')
-        cardComplete.style.width = "232px"
-        cardComplete.classList = "col text-center cardComplete"
-        cardComplete.onclick = function() {
-            this.classList.toggle('flipped')
-        }
-        cardComplete.style.backgroundImage = "url('img/campeao/RiotX_ChampionList_" + campeaoMVP.Campeao.Champion.toLowerCase() + ".jpg')";
-        cardComplete.style.backgroundSize = "cover"
-        cardComplete.style.backgroundPosition = "center"
-        cardComplete.style.backgroundRepeat = "no-repeat"
-
-        const divName = document.createElement('div')
-        divName.classList = "text-center"
-        const name = document.createElement('span')
-        name.textContent = playerName
-        divName.appendChild(name)
-        card.appendChild(divName)
-
-        const divScore = document.createElement('div')
-        divScore.classList = "text-center"
-        const scoreElement = document.createElement('span')
-        scoreElement.textContent = scorePlayer.toFixed(0)
-        divScore.appendChild(scoreElement)
-        card.appendChild(divScore)
-
-        const divPhoto = document.createElement('div')
-        divPhoto.className = "photo-player"
-        const photo = document.createElement('img')
-        photo.src = `img/${playerName}.webp`
-        photo.style.width = "220px"
-        photo.style.height = "156px"
-        divPhoto.appendChild(photo)
-        card.appendChild(divPhoto)
-
-        const country = document.createElement('img')
-        country.className = "country-class"
-        country.src = `img/country/${todosDados[dadosJogadores][1]}.png`
-        divPhoto.appendChild(country)
-
-        const games = createDataElement('Jogos', todosDados[dadosJogadores][2])
-        const win = createDataElement('WinRate', todosDados[dadosJogadores][3])
-        const kda = createDataElement('KDA', todosDados[dadosJogadores][5])
-        const kp = createDataElement('KP%', todosDados[dadosJogadores][10])
-
-        card.appendChild(games)
-        card.appendChild(win)
-        card.appendChild(kda)
-        card.appendChild(kp)
-
-        cardComplete.appendChild(card)
-        jogadorTable.appendChild(cardComplete)
+        gerarCarta(
+            campeaoMVP.Campeao.Champion,
+            playerName, 
+            todosDados[dadosJogadores][1],
+            todosDados[dadosJogadores][2], 
+            todosDados[dadosJogadores][3], 
+            todosDados[dadosJogadores][5], 
+            todosDados[dadosJogadores][10], 
+            scorePlayer,
+            jogadorTable
+        )
     }
 
     function printTodosJogadores() {
@@ -327,7 +189,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         data.forEach(row => {
                             const currentRole = groupRole.find(player => player.Player === row[0]).Role
                             const role = currentRole + '.json'
-                            
+
                             maiorMenor.winrate[role].max = Math.max(maiorMenor.winrate[role].max, parseFloat(row[3].replace('%', '')))
                             maiorMenor.winrate[role].min = Math.min(maiorMenor.winrate[role].min, parseFloat(row[3].replace('%', '')))
 
@@ -343,7 +205,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                             maiorMenor.wcpm[role].max = Math.max(maiorMenor.wcpm[role].max, row[15])
                             maiorMenor.wcpm[role].min = Math.min(maiorMenor.wcpm[role].min, row[15])
-                            
+
                             maiorMenor.gd[role].max = Math.max(maiorMenor.gd[role].max, row[17])
                             maiorMenor.gd[role].min = Math.min(maiorMenor.gd[role].min, row[17])
 
@@ -378,11 +240,11 @@ document.addEventListener("DOMContentLoaded", function () {
                             score.push(gerarScore(row[18], maiorMenor.csd[row[24] + '.json'][0], maiorMenor.csd[row[24] + '.json'][1], percentualBase[6]))
                             score.push(gerarScore(row[19], maiorMenor.xpd[row[24] + '.json'][0], maiorMenor.xpd[row[24] + '.json'][1], percentualBase[7]))
 
-                            
+
                             let media = 0
                             for (let index = 0; index < score.length; index++) {
                                 media += score[index]
-                            }                            
+                            }
                             ranking.push({ jogador: row[0], media: media })
                         })
                         ranking.sort((a, b) => b.media - a.media)
@@ -445,6 +307,72 @@ document.addEventListener("DOMContentLoaded", function () {
             time.textContent += ` - ${totalScoreTime[aux].toFixed(0)}`
             aux++
         })
+    }
+
+    function gerarCarta(imageChampion, playerName, imgCountry, dataGames, dataWin, dataKda, dataKp, scorePlayer, jogadorTable) {
+
+        const cardComplete = document.createElement('div')
+        cardComplete.style.width = "232px"
+        cardComplete.classList = "col text-center cardComplete"
+        cardComplete.onclick = function () {
+            this.classList.toggle('flipped')
+        }
+        cardComplete.style.backgroundImage = "url('img/campeao/RiotX_ChampionList_" + imageChampion.toLowerCase() + ".jpg')";
+        cardComplete.style.backgroundSize = "cover"
+        cardComplete.style.backgroundPosition = "center"
+        cardComplete.style.backgroundRepeat = "no-repeat"
+
+
+        const card = document.createElement('div')
+        card.style.width = "232px"
+        card.classList = "col text-center cardJogador"
+
+        const cardChampion = document.createElement('div')
+        cardChampion.style.width = "232px"
+        cardChampion.classList = "col text-center cardChampion"
+
+        const divName = document.createElement('div')
+        divName.classList = "text-center"
+        const name = document.createElement('span')
+        name.textContent = playerName
+        divName.appendChild(name)
+        card.appendChild(divName)
+
+        const divScore = document.createElement('div')
+        divScore.classList = "text-center scorePlayer"
+        const scoreElement = document.createElement('span')
+        scoreElement.textContent = scorePlayer.toFixed(0)
+        divScore.appendChild(scoreElement)
+        card.appendChild(divScore)
+
+        const divPhoto = document.createElement('div')
+        divPhoto.className = "photo-player"
+        const photo = document.createElement('img')
+        photo.src = `img/${playerName}.webp`
+        photo.style.width = "232px"
+        photo.style.height = "156px"
+        divPhoto.appendChild(photo)
+        card.appendChild(divPhoto)
+
+        const country = document.createElement('img')
+        country.className = "country-class"
+        country.src = `img/country/${imgCountry}.png`
+        divPhoto.appendChild(country)
+
+
+        const games = createDataElement('Jogos', dataGames)
+        const win = createDataElement('WinRate', dataWin)
+        const kda = createDataElement('KDA', dataKda)
+        const kp = createDataElement('KP%', dataKp)
+
+        card.appendChild(games)
+        card.appendChild(win)
+        card.appendChild(kda)
+        card.appendChild(kp)
+
+        cardComplete.appendChild(card)
+        cardComplete.appendChild(cardChampion)
+        jogadorTable.appendChild(cardComplete)
     }
 
     printTimes()
