@@ -170,12 +170,18 @@ document.addEventListener("DOMContentLoaded", function () {
             card.appendChild(divScore)
 
             const divPhoto = document.createElement('div')
+            divPhoto.className = "photo-player"
             const photo = document.createElement('img')
             photo.src = `img/${playerName}.webp`
             photo.style.width = "220px"
             photo.style.height = "156px"
             divPhoto.appendChild(photo)
             card.appendChild(divPhoto)
+
+            const country = document.createElement('img')
+            country.className = "country-class"
+            country.src = `img/country/${todosDados[dadosJogadores][1]}.png`
+            divPhoto.appendChild(country)
 
             const games = createDataElement('Jogos', todosDados[dadosJogadores][2])
             const win = createDataElement('WinRate', todosDados[dadosJogadores][3])
@@ -246,12 +252,18 @@ document.addEventListener("DOMContentLoaded", function () {
         card.appendChild(divScore)
 
         const divPhoto = document.createElement('div')
+        divPhoto.className = "photo-player"
         const photo = document.createElement('img')
         photo.src = `img/${playerName}.webp`
         photo.style.width = "220px"
         photo.style.height = "156px"
         divPhoto.appendChild(photo)
         card.appendChild(divPhoto)
+
+        const country = document.createElement('img')
+        country.className = "country-class"
+        country.src = `img/country/${todosDados[dadosJogadores][1]}.png`
+        divPhoto.appendChild(country)
 
         const games = createDataElement('Jogos', todosDados[dadosJogadores][2])
         const win = createDataElement('WinRate', todosDados[dadosJogadores][3])
