@@ -1,0 +1,54 @@
+.cardChampion {
+    max-width: 234px;
+    max-height: 345.56px;
+    min-width: 234px;
+    min-height: 345.56px;
+    z-index: 999;
+}
+
+.cardJogador {
+    /* border: solid 1px #4e4e4e; */
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+}
+
+.cardJogador::before,
+.cardJogador::after {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    width: calc(100% + 10px);
+    height: calc(100% + 10px);
+    background: linear-gradient(45deg, #ffff00, #00ff00, #0099ff, 
+                #001aff, #a200ff, #ff0055, #ff0000, #ffff00, 
+                #00ff00, #0099ff, #001aff, #a200ff);
+    background-size: 300%;
+    border-radius: 8px;
+    animation: borda 4s linear infinite;
+}
+
+.cardChampion::before,
+.cardChampion::after {
+    width: calc(100% + 10px);
+    height: calc(100% + 10px);
+}
+
+@keyframes borda {
+    0% {
+        background-position: 0;
+    }
+    100% {
+        background-position: 300%;
+    }
+}
+
+.cardJogador::after,
+.cardChampion::after {
+    filter: blur(10px);
+}
+
+ 
