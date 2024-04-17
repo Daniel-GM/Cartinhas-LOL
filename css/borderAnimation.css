@@ -1,11 +1,3 @@
-.cardChampion {
-    max-width: 234px;
-    max-height: 345.56px;
-    min-width: 234px;
-    min-height: 345.56px;
-    z-index: 999;
-}
-
 .cardJogador {
     /* border: solid 1px #4e4e4e; */
     position: relative;
@@ -16,39 +8,150 @@
     border-radius: 8px;
 }
 
-.cardJogador::before,
-.cardJogador::after {
+/* bronze */
+.score0-19::before,
+.score0-19::after {
+    background: linear-gradient(45deg, #00000000, #00000000, 
+                                        #AB7057, #76432C, 
+                                        #00000000, #00000000, 
+                                        #76432C, #AB7057);
+}
+
+.score0-19::after {
+    filter: blur(0px);
+}
+
+/* prata */
+.score20-39::before,
+.score20-39::after {
+    background: linear-gradient(45deg, #00000000, #00000000, 
+                                        #6F7B87, #3A434F, 
+                                        #00000000, #00000000, 
+                                        #3A434F, #6F7B87);
+}
+
+.score20-39::after {
+    filter: blur(2px);
+}
+
+/* ouro */
+.score40-59::before,
+.score40-59::after {
+    background: linear-gradient(45deg, #00000000, #00000000, 
+                                        #C88C51, #7A5423, 
+                                        #00000000, #00000000, 
+                                        #7A5423, #C88C51);
+}
+
+.score40-59::after {
+    filter: blur(5px);
+}
+
+/* esmeralda */
+.score60-79::before,
+.score60-79::after {
+    background: linear-gradient(45deg, #00000000, #00000000, 
+                                        #0F7A6B, #2DA899, 
+                                        #00000000, #bd0e0e00, 
+                                        #2DA899, #0F7A6B);
+}
+
+.score60-79::after {
+    filter: blur(10px);
+}
+
+/* diamante */
+.score80-89::before,
+.score80-89::after {
+    background: linear-gradient(45deg, #00000000, #00000000, 
+                                        #87FEFF, #3E5C8E, 
+                                        #00000000, #00000000, 
+                                        #3E5C8E, #87FEFF);
+}
+
+.score80-89::after {
+    filter: blur(15px);
+}
+
+/* mestre */
+.score90-95::before,
+.score90-95::after {
+    background: linear-gradient(45deg, #00000000, #00000000, 
+                                        #9A31E5, #744965, 
+                                        #00000000, #00000000, 
+                                        #744965, #9A31E5);
+                                    }
+
+.score90-95::after {
+    filter: blur(20px);
+}
+
+/* grao-mestre */
+.score96-99::before,
+.score96-99::after {
+    background: linear-gradient(45deg, #00000000, #00000000,  
+                                        #561C28, #D9533A, #FF8D47, #761F28, 
+                                        #00000000, #00000000, 
+                                        #561C28, #D9533A, #FF8D47, #761F28);
+}
+
+.score96-99::after {
+    filter: blur(35px);
+}
+
+/* desafiante */
+.score100::before,
+.score100::after {
+    background: linear-gradient(45deg, #00000000, #00000000,  
+                                        #D6B163, #056FA1, #206397, #E1BD71, 
+                                        #00000000, #00000000, 
+                                        #056FA1,  #E1BD71, #D6B163, #206397);
+}
+
+.score100::after {
+    filter: blur(50px);
+}
+
+.score0-19::before,
+.score20-39::before,
+.score40-59::before,
+.score60-79::before,
+.score80-89::before,
+.score90-95::before,
+.score96-99::before,
+.score100::before,
+.score0-19::after,
+.score20-39::after,
+.score40-59::after,
+.score60-79::after,
+.score80-89::after,
+.score90-95::after,
+.score96-99::after,
+.score100::after {
     content: '';
     position: absolute;
     z-index: -1;
     width: calc(100% + 10px);
     height: calc(100% + 10px);
-    background: linear-gradient(45deg, #ffff00, #00ff00, #0099ff, 
-                #001aff, #a200ff, #ff0055, #ff0000, #ffff00, 
-                #00ff00, #0099ff, #001aff, #a200ff);
-    background-size: 300%;
+    background-size: 600%;
     border-radius: 8px;
-    animation: borda 4s linear infinite;
-}
-
-.cardChampion::before,
-.cardChampion::after {
-    width: calc(100% + 10px);
-    height: calc(100% + 10px);
+    animation: borda 10s infinite;
 }
 
 @keyframes borda {
     0% {
-        background-position: 0;
+        background-position: 0%;
+    }
+    25% {
+        background-position: 100%;
+    }
+    50% {
+        background-position: 0%;
+    }
+    75% {
+        background-position: 100%;
     }
     100% {
-        background-position: 300%;
+        background-position: 0%;
     }
 }
-
-.cardJogador::after,
-.cardChampion::after {
-    filter: blur(10px);
-}
-
- 

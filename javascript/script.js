@@ -310,22 +310,20 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function gerarCarta(imageChampion, playerName, imgCountry, dataGames, dataWin, dataKda, dataKp, scorePlayer, jogadorTable) {
-
         const cardComplete = document.createElement('div')
         cardComplete.style.width = "232px"
         cardComplete.classList = "col text-center cardComplete"
         cardComplete.onclick = function () {
             this.classList.toggle('flipped')
         }
-        cardComplete.style.backgroundImage = "url('img/campeao/RiotX_ChampionList_" + imageChampion.toLowerCase() + ".jpg')";
+        cardComplete.style.backgroundImage = "url('img/campeao/RiotX_ChampionList_" + imageChampion.toLowerCase() + ".jpg')"
         cardComplete.style.backgroundSize = "cover"
         cardComplete.style.backgroundPosition = "center"
         cardComplete.style.backgroundRepeat = "no-repeat"
 
-
         const card = document.createElement('div')
         card.style.width = "232px"
-        card.classList = "col text-center cardJogador"
+        card.classList = "col text-center cardJogador " + chooseColor(scorePlayer.toFixed(0))
 
         const cardChampion = document.createElement('div')
         cardChampion.style.width = "232px"
@@ -373,6 +371,17 @@ document.addEventListener("DOMContentLoaded", function () {
         cardComplete.appendChild(card)
         cardComplete.appendChild(cardChampion)
         jogadorTable.appendChild(cardComplete)
+    }
+
+    function chooseColor(score) {
+        if(score >= 0 && score <= 19) return 'score0-19';
+        else if(score >= 20 && score <= 39) return 'score20-39';
+        else if(score >= 40 && score <= 59) return 'score40-59';
+        else if(score >= 60 && score <= 79) return 'score60-79';
+        else if(score >= 80 && score <= 89) return 'score80-89';
+        else if(score >= 90 && score <= 95) return 'score90-95';
+        else if(score >= 96 && score <= 99) return 'score96-99';
+        else if(score == 100) return 'score100';
     }
 
     printTimes()
