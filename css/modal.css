@@ -1,0 +1,33 @@
+#modalInfo div, #modalInfo h2 {
+    color: #000 !important;
+}
+
+.close {
+    background: #fff;
+    border-color: #00000000;
+}
+
+.divModal {
+    height: 10px;
+    position: relative;
+    z-index: 3;
+    margin-bottom: 15px;
+}
+
+#modalInfo h2 {
+    font-size: 1.1rem !important;
+}
+
+#modalInfo h3 {
+    font-size: .7rem !important;
+}
+
+#modalInfo p {
+    font-size: .6rem !important;
+    margin-bottom: 0;
+}
+
+#modalInfo bold {
+    font-size: .7rem !important;
+    font-weight: 600;
+}

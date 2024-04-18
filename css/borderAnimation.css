@@ -1,5 +1,4 @@
 .cardJogador {
-    /* border: solid 1px #4e4e4e; */
     position: relative;
     display: flex;
     flex-direction: column;
@@ -12,9 +11,9 @@
 .score0-19::before,
 .score0-19::after {
     background: linear-gradient(45deg, #00000000, #00000000, 
-                                        #AB7057, #76432C, 
+                                        #76432C, 
                                         #00000000, #00000000, 
-                                        #76432C, #AB7057);
+                                        #76432C);
 }
 
 .score0-19::after {
@@ -25,9 +24,9 @@
 .score20-39::before,
 .score20-39::after {
     background: linear-gradient(45deg, #00000000, #00000000, 
-                                        #6F7B87, #3A434F, 
+                                        #3A434F, 
                                         #00000000, #00000000, 
-                                        #3A434F, #6F7B87);
+                                        #3A434F);
 }
 
 .score20-39::after {
@@ -64,9 +63,9 @@
 .score80-89::before,
 .score80-89::after {
     background: linear-gradient(45deg, #00000000, #00000000, 
-                                        #87FEFF, #3E5C8E, 
+                                        #3E5C8E, #87FEFF, #3E5C8E,
                                         #00000000, #00000000, 
-                                        #3E5C8E, #87FEFF);
+                                        #3E5C8E, #87FEFF, #3E5C8E);
 }
 
 .score80-89::after {
@@ -77,9 +76,9 @@
 .score90-95::before,
 .score90-95::after {
     background: linear-gradient(45deg, #00000000, #00000000, 
-                                        #9A31E5, #744965, 
+                                        #9A31E5, #744965, #9A31E5,
                                         #00000000, #00000000, 
-                                        #744965, #9A31E5);
+                                        #9A31E5, #744965, #9A31E5);
                                     }
 
 .score90-95::after {

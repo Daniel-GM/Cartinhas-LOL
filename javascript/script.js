@@ -320,6 +320,7 @@ document.addEventListener("DOMContentLoaded", function () {
         cardComplete.style.backgroundSize = "cover"
         cardComplete.style.backgroundPosition = "center"
         cardComplete.style.backgroundRepeat = "no-repeat"
+        cardComplete.style.borderRadius = "8px"
 
         const card = document.createElement('div')
         card.style.width = "232px"
