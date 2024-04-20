@@ -38,8 +38,13 @@ document.addEventListener("DOMContentLoaded", function () {
                 const score = dados.findIndex(score => score.jogador === playerName)
                 const scorePlayer = dados[score].media
 
+                const categoria = await getCategoria(player.Campeao.Champion)
+
+                console.log(player.Campeao)
+
                 gerarCarta(
-                    player.Campeao.Champion, 
+                    player.Campeao, 
+                    categoria,
                     playerName, 
                     todosDados[dadosJogadores][1],
                     todosDados[dadosJogadores][2], 
@@ -88,10 +93,11 @@ document.addEventListener("DOMContentLoaded", function () {
             const scorePlayer = dados[score].media
             const indexPlayers = players.findIndex(score => score.Player === playerName)
 
-            console.log(dreamTeam)
+            const categoria = await getCategoria(players[indexPlayers].Campeao.Champion)
 
             gerarCarta(
-                players[indexPlayers].Campeao.Champion, 
+                players[indexPlayers].Campeao, 
+                categoria,
                 playerName, 
                 todosDados[dadosJogadores][1],
                 todosDados[dadosJogadores][2], 
@@ -128,8 +134,11 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         }
 
+        const categoria = await getCategoria(campeaoMVP.Campeao.Champion)
+
         gerarCarta(
-            campeaoMVP.Campeao.Champion,
+            campeaoMVP.Campeao,
+            categoria,
             playerName, 
             todosDados[dadosJogadores][1],
             todosDados[dadosJogadores][2], 
@@ -309,14 +318,14 @@ document.addEventListener("DOMContentLoaded", function () {
         })
     }
 
-    function gerarCarta(imageChampion, playerName, imgCountry, dataGames, dataWin, dataKda, dataKp, scorePlayer, jogadorTable) {
+    function gerarCarta(imageChampion, categoria, playerName, imgCountry, dataGames, dataWin, dataKda, dataKp, scorePlayer, jogadorTable) {
         const cardComplete = document.createElement('div')
         cardComplete.style.width = "232px"
-        cardComplete.classList = "col text-center cardComplete"
+        cardComplete.classList = "col text-center cardComplete mt-2"
         cardComplete.onclick = function () {
             this.classList.toggle('flipped')
         }
-        cardComplete.style.backgroundImage = "url('img/campeao/RiotX_ChampionList_" + imageChampion.toLowerCase() + ".jpg')"
+        cardComplete.style.backgroundImage = "url('img/campeao/RiotX_ChampionList_" + imageChampion.Champion.toLowerCase() + ".jpg')"
         cardComplete.style.backgroundSize = "cover"
         cardComplete.style.backgroundPosition = "center"
         cardComplete.style.backgroundRepeat = "no-repeat"
@@ -329,6 +338,56 @@ document.addEventListener("DOMContentLoaded", function () {
         const cardChampion = document.createElement('div')
         cardChampion.style.width = "232px"
         cardChampion.classList = "col text-center cardChampion"
+
+        const divIconChampion = document.createElement('div')
+        divIconChampion.classList = "divIconChampion"
+        cardChampion.appendChild(divIconChampion)
+        
+        const iconChampion = document.createElement('img')
+        iconChampion.classList = "iconChampion"
+        iconChampion.style.backgroundColor = `#000`
+        iconChampion.style.borderRadius = `8px`
+        iconChampion.src = `img/icon-champion/Title ${categoria}.png`
+        divIconChampion.appendChild(iconChampion)
+
+        const divWinrateChampion = document.createElement('div')
+        divWinrateChampion.classList = "divWinrateChampion"
+        cardChampion.appendChild(divWinrateChampion)
+        
+        const spanWinrateChampion = document.createElement('span')
+        spanWinrateChampion.textContent = "Winrate"
+        const spanWinrateData = document.createElement('span')
+        spanWinrateData.textContent = imageChampion.Winrate
+        divWinrateChampion.appendChild(spanWinrateChampion)
+        divWinrateChampion.appendChild(spanWinrateData)
+
+        const divKdaChampion = document.createElement('div')
+        divKdaChampion.classList = "divKdaChampion"
+        cardChampion.appendChild(divKdaChampion)
+
+        const spanKdaChampion = document.createElement('span')
+        spanKdaChampion.textContent = "KDA"
+        const spanKdaData = document.createElement('span')
+        spanKdaData.textContent = imageChampion.KDA
+        divKdaChampion.appendChild(spanKdaChampion)
+        divKdaChampion.appendChild(spanKdaData)
+
+        const divPlayedChampion = document.createElement('div')
+        divPlayedChampion.classList = "divPlayedChampion"
+        cardChampion.appendChild(divPlayedChampion)
+
+        const spanPlayedChampion = document.createElement('span')
+        spanPlayedChampion.textContent = "Jogadas"
+        const spanPlayedData = document.createElement('span')
+        spanPlayedData.textContent = imageChampion["Times Played"]
+        divPlayedChampion.appendChild(spanPlayedChampion)
+        divPlayedChampion.appendChild(spanPlayedData)
+        
+        const nameChampion = document.createElement('span')
+        nameChampion.classList = "nameChampion"
+        nameChampion.textContent = imageChampion.Champion
+        divIconChampion.appendChild(nameChampion)
+
 
         const divName = document.createElement('div')
         divName.classList = "text-center"
@@ -383,6 +442,20 @@ document.addEventListener("DOMContentLoaded", function () {
         else if(score >= 90 && score <= 95) return 'score90-95';
         else if(score >= 96 && score <= 99) return 'score96-99';
         else if(score == 100) return 'score100';
+    }
+
+    async function getCategoria(campeao) {
+        const campeoesDados = await categoriasCammpeaoes()
+        let categoria
+
+        for (let classe in campeoesDados) {
+            const index = campeoesDados[classe].findIndex(name => name === campeao)
+            if(index != -1) {
+                categoria = classe
+                break
+            }
+        }
+        return categoria
     }
 
     printTimes()

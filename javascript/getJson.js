@@ -43,6 +43,20 @@ document.addEventListener("DOMContentLoaded", function () {
             })
     }
 
+    function categoriasCammpeaoes() {
+        return fetch("categoria.json")
+            .then(response => response.text())
+            .then(text => {
+                const data = JSON.parse(text)
+                localStorage.setItem("categoria.json", JSON.stringify(data))
+                return data
+            })
+            .catch(error => {
+                console.error("Erro ao obter os dados da categotia:", error)
+                throw error
+            })
+    }
+
     function mostrarRoles(data) {
         if (data === null) {
             console.error("Dados nulos fornecidos para mostrar as roles")
@@ -52,7 +66,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // console.log(data)
     }
 
-    function transformarJsonJogadores (input) {
+    function transformarJsonJogadores(input) {
         input = input.replace(/}}/g, "}},")
         output = input.slice(0, -1) + ``
         output = `[${output}]`
@@ -67,6 +81,7 @@ document.addEventListener("DOMContentLoaded", function () {
         return output
     }
 
+    window.categoriasCammpeaoes = categoriasCammpeaoes
     window.todosJogadores = todosJogadores
     window.jogadores = jogadores
     window.times = times

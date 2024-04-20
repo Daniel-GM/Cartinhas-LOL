@@ -56,12 +56,78 @@ h2, div {
 }
 
 .cardChampion {
+    max-width: 234px;
+    max-height: 345.56px;
+    min-width: 234px;
+    min-height: 345.56px;
+
     position: absolute;
     height: 100%;
     width: 100%;
     border-radius: 8px;
     
     transform: rotateY(180deg);
+}
+
+.divIconChampion {
+    position: absolute;
+    background: #000;
+    color: #fff;
+    right: 12.5%;
+    height: 30px;
+    width: 75% !important;
+    border-radius: 0px 0px 8px 8px;
+    display: flex;
+    justify-content: center;
+    top: -1px;
+    border-top-color: #000 !important;
+}
+
+.iconChampion {
+    position: absolute;
+    left: 2px;
+    top: 5.5%;
+    width: 25px;
+}
+
+.nameChampion {
+    font-size: 18px;
+    left: 20%;
+}
+
+.divWinrateChampion,
+.divKdaChampion,
+.divPlayedChampion {
+    position: absolute;
+    background: #000;
+    color: #fff;
+    width: 100% !important;
+    border-radius: 0px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 22px;
+}
+
+.divWinrateChampion span,
+.divKdaChampion span,
+.divPlayedChampion span {
+    font-size: 16px;
+    width: 50%;
+}
+
+
+.divWinrateChampion {
+    bottom: calc(44px);
+}
+
+.divKdaChampion {
+    bottom: calc(22px);
+}
+
+.divPlayedChampion {
+    bottom: 0%;
+    border-radius: 0px 0px 8px 8px;
 }
 
 .photo-player {

@@ -1,0 +1,666 @@
+[
+    {
+      "nome": "Aatrox",
+      "classe": "Fighter"
+    },
+    {
+      "nome": "Ahri",
+      "classe": "Mage"
+    },
+    {
+      "nome": "Akali",
+      "classe": "Assassin"
+    },
+    {
+      "nome": "Akshan",
+      "classe": "Marksman"
+    },
+    {
+      "nome": "Alistar",
+      "classe": "Tank"
+    },
+    {
+      "nome": "Amumu",
+      "classe": "Tank"
+    },
+    {
+      "nome": "Anivia",
+      "classe": "Mage"
+    },
+    {
+      "nome": "Annie",
+      "classe": "Mage"
+    },
+    {
+      "nome": "Aphelios",
+      "classe": "Marksman"
+    },
+    {
+      "nome": "Ashe",
+      "classe": "Marksman"
+    },
+    {
+      "nome": "Aurelion Sol",
+      "classe": "Mage"
+    },
+    {
+      "nome": "Azir",
+      "classe": "Mage"
+    },
+    {
+      "nome": "Bardo",
+      "classe": "Support"
+    },
+    {
+      "nome": "Bel'Veth",
+      "classe": "Assassin"
+    },
+    {
+      "nome": "Blitzcrank",
+      "classe": "Support"
+    },
+    {
+      "nome": "Brand",
+      "classe": "Mage"
+    },
+    {
+      "nome": "Braum",
+      "classe": "Tank"
+    },
+    {
+      "nome": "Briar",
+      "classe": "Fighter"
+    },
+    {
+      "nome": "Caitlyn",
+      "classe": "Marksman"
+    },
+    {
+      "nome": "Camille",
+      "classe": "Fighter"
+    },
+    {
+      "nome": "Cassiopeia",
+      "classe": "Mage"
+    },
+    {
+      "nome": "Cho'Gath",
+      "classe": "Tank"
+    },
+    {
+      "nome": "Corki",
+      "classe": "Marksman"
+    },
+    {
+      "nome": "Darius",
+      "classe": "Fighter"
+    },
+    {
+      "nome": "Diana",
+      "classe": "Assassin"
+    },
+    {
+      "nome": "Dr. Mundo",
+      "classe": "Fighter"
+    },
+    {
+      "nome": "Draven",
+      "classe": "Marksman"
+    },
+    {
+      "nome": "Ekko",
+      "classe": "Assassin"
+    },
+    {
+      "nome": "Elise",
+      "classe": "Fighter"
+    },
+    {
+      "nome": "Evelynn",
+      "classe": "Assassin"
+    },
+    {
+      "nome": "Ezreal",
+      "classe": "Marksman"
+    },
+    {
+      "nome": "Fiddlesticks",
+      "classe": "Mage"
+    },
+    {
+      "nome": "Fiora",
+      "classe": "Fighter"
+    },
+    {
+      "nome": "Fizz",
+      "classe": "Assassin"
+    },
+    {
+      "nome": "Galio",
+      "classe": "Tank"
+    },
+    {
+      "nome": "Gangplank",
+      "classe": "Fighter"
+    },
+    {
+      "nome": "Garen",
+      "classe": "Fighter"
+    },
+    {
+      "nome": "Gnar",
+      "classe": "Fighter"
+    },
+    {
+      "nome": "Gragas",
+      "classe": "Tank"
+    },
+    {
+      "nome": "Graves",
+      "classe": "Marksman"
+    },
+    {
+      "nome": "Gwen",
+      "classe": "Assassin"
+    },
+    {
+      "nome": "Hecarim",
+      "classe": "Fighter"
+    },
+    {
+      "nome": "Heimerdinger",
+      "classe": "Mage"
+    },
+    {
+      "nome": "Hwei",
+      "classe": "Mage"
+    },
+    {
+      "nome": "Illaoi",
+      "classe": "Fighter"
+    },
+    {
+      "nome": "Irelia",
+      "classe": "Fighter"
+    },
+    {
+      "nome": "Ivern",
+      "classe": "Support"
+    },
+    {
+      "nome": "Janna",
+      "classe": "Support"
+    },
+    {
+      "nome": "Jarvan IV",
+      "classe": "Fighter"
+    },
+    {
+      "nome": "Jax",
+      "classe": "Assassin"
+    },
+    {
+      "nome": "Jayce",
+      "classe": "Mage"
+    },
+    {
+      "nome": "Jhin",
+      "classe": "Marksman"
+    },
+    {
+      "nome": "Jinx",
+      "classe": "Marksman"
+    },
+    {
+      "nome": "K'Sante",
+      "classe": "Tank"
+    },
+    {
+      "nome": "Kai'Sa",
+      "classe": "Marksman"
+    },
+    {
+      "nome": "Kalista",
+      "classe": "Marksman"
+    },
+    {
+      "nome": "Karma",
+      "classe": "Mage"
+    },
+    {
+      "nome": "Karthus",
+      "classe": "Mage"
+    },
+    {
+      "nome": "Kassadin",
+      "classe": "Assassin"
+    },
+    {
+      "nome": "Katarina",
+      "classe": "Assassin"
+    },
+    {
+      "nome": "Kayle",
+      "classe": "Fighter"
+    },
+    {
+      "nome": "Kayn",
+      "classe": "Assassin"
+    },
+    {
+      "nome": "Kennen",
+      "classe": "Mage"
+    },
+    {
+      "nome": "Kha'Zix",
+      "classe": "Assassin"
+    },
+    {
+      "nome": "Kindred",
+      "classe": "Marksman"
+    },
+    {
+      "nome": "Kled",
+      "classe": "Fighter"
+    },
+    {
+      "nome": "Kog'Maw",
+      "classe": "Marksman"
+    },
+    {
+      "nome": "LeBlanc",
+      "classe": "Mage"
+    },
+    {
+      "nome": "Lee Sin",
+      "classe": "Fighter"
+    },
+    {
+      "nome": "Leona",
+      "classe": "Tank"
+    },
+    {
+      "nome": "Lillia",
+      "classe": "Assassin"
+    },
+    {
+      "nome": "Lissandra",
+      "classe": "Mage"
+    },
+    {
+      "nome": "Lucian",
+      "classe": "Marksman"
+    },
+    {
+      "nome": "Lulu",
+      "classe": "Support"
+    },
+    {
+      "nome": "Lux",
+      "classe": "Mage"
+    },
+    {
+      "nome": "Malphite",
+      "classe": "Tank"
+    },
+    {
+      "nome": "Malzahar",
+      "classe": "Mage"
+    },
+    {
+      "nome": "Maokai",
+      "classe": "Tank"
+    },
+    {
+      "nome": "Master Yi",
+      "classe": "Assassin"
+    },
+    {
+      "nome": "Milio",
+      "classe": "Support"
+    },
+    {
+      "nome": "Miss Fortune",
+      "classe": "Marksman"
+    },
+    {
+      "nome": "Mordekaiser",
+      "classe": "Fighter"
+    },
+    {
+      "nome": "Morgana",
+      "classe": "Mage"
+    },
+    {
+      "nome": "Naafiri",
+      "classe": "Assassin"
+    },
+    {
+      "nome": "Nami",
+      "classe": "Support"
+    },
+    {
+      "nome": "Nasus",
+      "classe": "Fighter"
+    },
+    {
+      "nome": "Nautilus",
+      "classe": "Tank"
+    },
+    {
+      "nome": "Neeko",
+      "classe": "Mage"
+    },
+    {
+      "nome": "Nidalee",
+      "classe": "Assassin"
+    },
+    {
+      "nome": "Nilah",
+      "classe": "Fighter"
+    },
+    {
+      "nome": "Nocturne",
+      "classe": "Assassin"
+    },
+    {
+      "nome": "Nunu & Willump",
+      "classe": "Tank"
+    },
+    {
+      "nome": "Olaf",
+      "classe": "Fighter"
+    },
+    {
+      "nome": "Orianna",
+      "classe": "Mage"
+    },
+    {
+      "nome": "Ornn",
+      "classe": "Tank"
+    },
+    {
+      "nome": "Pantheon",
+      "classe": "Fighter"
+    },
+    {
+      "nome": "Poppy",
+      "classe": "Tank"
+    },
+    {
+      "nome": "Pyke",
+      "classe": "Assassin"
+    },
+    {
+      "nome": "Qiyana",
+      "classe": "Assassin"
+    },
+    {
+      "nome": "Quinn",
+      "classe": "Marksman"
+    },
+    {
+      "nome": "Rakan",
+      "classe": "Support"
+    },
+    {
+      "nome": "Rammus",
+      "classe": "Tank"
+    },
+    {
+      "nome": "Rek'Sai",
+      "classe": "Fighter"
+    },
+    {
+      "nome": "Rell",
+      "classe": "Tank"
+    },
+    {
+      "nome": "Renata Glasc",
+      "classe": "Support"
+    },
+    {
+      "nome": "Renekton",
+      "classe": "Fighter"
+    },
+    {
+      "nome": "Rengar",
+      "classe": "Assassin"
+    },
+    {
+      "nome": "Riven",
+      "classe": "Fighter"
+    },
+    {
+      "nome": "Rumble",
+      "classe": "Mage"
+    },
+    {
+      "nome": "Ryze",
+      "classe": "Mage"
+    },
+    {
+      "nome": "Samira",
+      "classe": "Marksman"
+    },
+    {
+      "nome": "Sejuani",
+      "classe": "Tank"
+    },
+    {
+      "nome": "Senna",
+      "classe": "Marksman"
+    },
+    {
+      "nome": "Seraphine",
+      "classe": "Mage"
+    },
+    {
+      "nome": "Sett",
+      "classe": "Fighter"
+    },
+    {
+      "nome": "Shaco",
+      "classe": "Assassin"
+    },
+    {
+      "nome": "Shen",
+      "classe": "Tank"
+    },
+    {
+      "nome": "Shyvana",
+      "classe": "Fighter"
+    },
+    {
+      "nome": "Singed",
+      "classe": "Tank"
+    },
+    {
+      "nome": "Sion",
+      "classe": "Tank"
+    },
+    {
+      "nome": "Sivir",
+      "classe": "Marksman"
+    },
+    {
+      "nome": "Skarner",
+      "classe": "Tank"
+    },
+    {
+      "nome": "Smolder",
+      "classe": "Marksman"
+    },
+    {
+      "nome": "Sona",
+      "classe": "Support"
+    },
+    {
+      "nome": "Soraka",
+      "classe": "Support"
+    },
+    {
+      "nome": "Swain",
+      "classe": "Mage"
+    },
+    {
+      "nome": "Sylas",
+      "classe": "Mage"
+    },
+    {
+      "nome": "Syndra",
+      "classe": "Mage"
+    },
+    {
+      "nome": "Tahm Kench",
+      "classe": "Tank"
+    },
+    {
+      "nome": "Taliyah",
+      "classe": "Mage"
+    },
+    {
+      "nome": "Talon",
+      "classe": "Assassin"
+    },
+    {
+      "nome": "Taric",
+      "classe": "Support"
+    },
+    {
+      "nome": "Teemo",
+      "classe": "Mage"
+    },
+    {
+      "nome": "Thresh",
+      "classe": "Support"
+    },
+    {
+      "nome": "Tristana",
+      "classe": "Marksman"
+    },
+    {
+      "nome": "Trundle",
+      "classe": "Fighter"
+    },
+    {
+      "nome": "Tryndamere",
+      "classe": "Fighter"
+    },
+    {
+      "nome": "Twisted Fate",
+      "classe": "Mage"
+    },
+    {
+      "nome": "Twitch",
+      "classe": "Marksman"
+    },
+    {
+      "nome": "Udyr",
+      "classe": "Fighter"
+    },
+    {
+      "nome": "Urgot",
+      "classe": "Fighter"
+    },
+    {
+      "nome": "Varus",
+      "classe": "Marksman"
+    },
+    {
+      "nome": "Vayne",
+      "classe": "Marksman"
+    },
+    {
+      "nome": "Veigar",
+      "classe": "Mage"
+    },
+    {
+      "nome": "Vel'Koz",
+      "classe": "Mage"
+    },
+    {
+      "nome": "Vi",
+      "classe": "Fighter"
+    },
+    {
+      "nome": "Viego",
+      "classe": "Assassin"
+    },
+    {
+      "nome": "Viktor",
+      "classe": "Mage"
+    },
+    {
+      "nome": "Vladimir",
+      "classe": "Mage"
+    },
+    {
+      "nome": "Volibear",
+      "classe": "Fighter"
+    },
+    {
+      "nome": "Warwick",
+      "classe": "Fighter"
+    },
+    {
+      "nome": "Wukong",
+      "classe": "Fighter"
+    },
+    {
+      "nome": "Xayah",
+      "classe": "Marksman"
+    },
+    {
+      "nome": "Xerath",
+      "classe": "Mage"
+    },
+    {
+      "nome": "Xin Zhao",
+      "classe": "Fighter"
+    },
+    {
+      "nome": "Yasuo",
+      "classe": "Assassin"
+    },
+    {
+      "nome": "Yone",
+      "classe": "Assassin"
+    },
+    {
+      "nome": "Yorick",
+      "classe": "Fighter"
+    },
+    {
+      "nome": "Yuumi",
+      "classe": "Support"
+    },
+    {
+      "nome": "Zac",
+      "classe": "Tank"
+    },
+    {
+      "nome": "Zed",
+      "classe": "Assassin"
+    },
+    {
+      "nome": "Zeri",
+      "classe": "Marksman"
+    },
+    {
+      "nome": "Ziggs",
+      "classe": "Mage"
+    },
+    {
+      "nome": "Zilian",
+      "classe": "Mage"
+    },
+    {
+      "nome": "Zoe",
+      "classe": "Mage"
+    },
+    {
+      "nome": "Zyra",
+      "classe": "Mage"
+    }
+]
