@@ -40,12 +40,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 const categoria = await getCategoria(player.Campeao.Champion)
 
-                console.log(player.Campeao)
-
                 gerarCarta(
                     player.Campeao, 
                     categoria,
                     playerName, 
+                    timeKey,
                     todosDados[dadosJogadores][1],
                     todosDados[dadosJogadores][2], 
                     todosDados[dadosJogadores][3], 
@@ -71,8 +70,8 @@ document.addEventListener("DOMContentLoaded", function () {
         for (const role of roles) {
             const data = await jogadores(role)
             const players = JSON.parse(data)
-            let filterPlayers = []
-
+            let timeKey
+            let filterPlayers = []            
 
             for (let index = 0; index < players.length; index++) {
                 filterPlayers.push(players[index].Player)
@@ -83,6 +82,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (melhorLaner != -1) {
                     index = dados.length
                     dreamTeam.push(filterPlayers[melhorLaner])
+                    timeKey = players[melhorLaner].time.replace(/ /g, '').replace(/!/g, '').toLowerCase()
                 }
             }
 
@@ -99,6 +99,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 players[indexPlayers].Campeao, 
                 categoria,
                 playerName, 
+                timeKey,
                 todosDados[dadosJogadores][1],
                 todosDados[dadosJogadores][2], 
                 todosDados[dadosJogadores][3], 
@@ -119,6 +120,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const jogadorTable = document.querySelector(".mvp")
         const playerName = dados[0].jogador
         const scorePlayer = dados[0].media
+        let timeKey
 
         const dadosJogadores = todosDados.findIndex(score => score[0] === dados[0].jogador)
 
@@ -130,6 +132,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             if (indexPlayers !== -1) {
                 campeaoMVP = players[indexPlayers]
+                timeKey = players[indexPlayers].time.replace(/ /g, '').replace(/!/g, '').toLowerCase()
                 break
             }
         }
@@ -140,6 +143,7 @@ document.addEventListener("DOMContentLoaded", function () {
             campeaoMVP.Campeao,
             categoria,
             playerName, 
+            timeKey,
             todosDados[dadosJogadores][1],
             todosDados[dadosJogadores][2], 
             todosDados[dadosJogadores][3], 
@@ -208,19 +212,18 @@ document.addEventListener("DOMContentLoaded", function () {
                             maiorMenor.kp[role].max = Math.max(maiorMenor.kp[role].max, parseFloat(row[10].replace('%', '')))
                             maiorMenor.kp[role].min = Math.min(maiorMenor.kp[role].min, parseFloat(row[10].replace('%', '')))
 
-
                             maiorMenor.wpm[role].max = Math.max(maiorMenor.wpm[role].max, row[14])
                             maiorMenor.wpm[role].min = Math.min(maiorMenor.wpm[role].min, row[14])
-
+                        
                             maiorMenor.wcpm[role].max = Math.max(maiorMenor.wcpm[role].max, row[15])
                             maiorMenor.wcpm[role].min = Math.min(maiorMenor.wcpm[role].min, row[15])
-
+                        
                             maiorMenor.gd[role].max = Math.max(maiorMenor.gd[role].max, row[17])
                             maiorMenor.gd[role].min = Math.min(maiorMenor.gd[role].min, row[17])
-
+                        
                             maiorMenor.csd[role].max = Math.max(maiorMenor.csd[role].max, row[18])
                             maiorMenor.csd[role].min = Math.min(maiorMenor.csd[role].min, row[18])
-
+                        
                             maiorMenor.xpd[role].max = Math.max(maiorMenor.xpd[role].max, row[19])
                             maiorMenor.xpd[role].min = Math.min(maiorMenor.xpd[role].min, row[19])
                         })
@@ -266,6 +269,12 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function gerarScore(valor, max, min, percentual) {
+        if(valor == "-") {
+            valor = 1
+            max = 1
+            min = 0
+        }
+
         let score, pontuacao, maxMin, maxScore = percentual
         pontuacao = valor - min
         maxMin = max - min
@@ -318,9 +327,9 @@ document.addEventListener("DOMContentLoaded", function () {
         })
     }
 
-    function gerarCarta(imageChampion, categoria, playerName, imgCountry, dataGames, dataWin, dataKda, dataKp, scorePlayer, jogadorTable) {
+    function gerarCarta(imageChampion, categoria, playerName, imgTeam, imgCountry, dataGames, dataWin, dataKda, dataKp, scorePlayer, jogadorTable) {
         const cardComplete = document.createElement('div')
-        cardComplete.style.width = "232px"
+        cardComplete.style.width = "330px"
         cardComplete.classList = "col text-center cardComplete mt-2"
         cardComplete.onclick = function () {
             this.classList.toggle('flipped')
@@ -332,11 +341,11 @@ document.addEventListener("DOMContentLoaded", function () {
         cardComplete.style.borderRadius = "8px"
 
         const card = document.createElement('div')
-        card.style.width = "232px"
+        card.style.width = "330px"
         card.classList = "col text-center cardJogador " + chooseColor(scorePlayer.toFixed(0))
 
         const cardChampion = document.createElement('div')
-        cardChampion.style.width = "232px"
+        cardChampion.style.width = "330px"
         cardChampion.classList = "col text-center cardChampion"
 
         const divIconChampion = document.createElement('div')
@@ -407,8 +416,8 @@ document.addEventListener("DOMContentLoaded", function () {
         divPhoto.className = "photo-player"
         const photo = document.createElement('img')
         photo.src = `img/${playerName}.webp`
-        photo.style.width = "232px"
-        photo.style.height = "156px"
+        photo.style.maxWidth = "232px"
+        photo.style.height = "150px"
         divPhoto.appendChild(photo)
         card.appendChild(divPhoto)
 
@@ -417,6 +426,10 @@ document.addEventListener("DOMContentLoaded", function () {
         country.src = `img/country/${imgCountry}.png`
         divPhoto.appendChild(country)
 
+        const team = document.createElement('img')
+        team.className = "team-class"
+        team.src = `img/team/${imgTeam}.webp`
+        divPhoto.appendChild(team)
 
         const games = createDataElement('Jogos', dataGames)
         const win = createDataElement('WinRate', dataWin)

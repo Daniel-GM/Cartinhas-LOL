@@ -134,9 +134,14 @@ h2, div {
     position: relative;
 }
 
-.country-class {
+.country-class,
+.team-class {
     position: absolute;
     top: 5px;
     right: 10px;
     width: 15%;
+}
+
+.team-class {
+    top: 40px;
 }
