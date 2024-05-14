@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
             .then(data => {
                 data.forEach(time => {
                     const div = document.createElement('div')
-                    div.className = `row tabelasTimes justify-content-around ${time.replace(/ /g, '').replace(/!/g, '').toLowerCase()} mt-4 mb-4`
+                    div.className = `row tabelasTimes justify-content-around ${time.replace(/ /g, '').replace(/!/g, '').replace(/\./g, '').toLowerCase()} mt-4 mb-4`
 
                     const h1 = document.createElement('h1')
                     h1.textContent = time
@@ -32,14 +32,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
             for (const player of players) {
                 const playerName = player.Player
-                const timeKey = player.time.replace(/ /g, '').replace(/!/g, '').toLowerCase()
+                const timeKey = player.time.replace(/ /g, '').replace(/!/g, '').replace(/\./g, '').toLowerCase()
                 const jogadorTable = document.querySelector(`.${timeKey}`)
                 const dadosJogadores = todosDados.findIndex(score => score[0] === playerName)
                 const score = dados.findIndex(score => score.jogador === playerName)
                 const scorePlayer = dados[score].media
-
+                
                 const categoria = await getCategoria(player.Campeao.Champion)
-
                 gerarCarta(
                     player.Campeao, 
                     categoria,
